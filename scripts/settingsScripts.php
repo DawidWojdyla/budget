@@ -122,8 +122,8 @@ function showExpenseCategories()
 		document.getElementById("expenseCategoriesEditOption").style.display = "none";
 		areExpenseCategoriesShown = false;
 		
-		if(isExpenseCategoryPositionsEditFormShown) showIncomeCategoryPositionsEditForm();
-		if(isNewExpenseCategoryAddingFormShown) showNewIncomeCategoryAddingForm();
+		if(isExpenseCategoryPositionsEditFormShown) showExpenseCategoryPositionsEditForm();
+		if(isNewExpenseCategoryAddingFormShown) showNewExpenseCategoryAddingForm();
 		if(lastChosenCategoryId.substr(0,1) == 'e') showCategoryEditOptions(lastChosenCategoryId);
 	}
 }
