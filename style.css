@@ -3,7 +3,22 @@ body
 	/* Background pattern from subtlepatterns.com */
 	background-image: url("img/brushed.png");
 	font-family: 'Lato', sans-serif;
-	padding-bottom: 10px;
+}
+
+h1
+{
+	font-weight: bold;
+
+}
+
+.glyphicon
+{
+	background-color: #44ab53;
+	padding: 10px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	font-size: 18px;
+	height: 40px;
 }
 
 .rectangle
@@ -28,14 +43,13 @@ body
 #logo > a
 {
 	text-decoration: none;
+	padding-bottom:1px;
 	color: inherit;
 }
 
 #logo > a:hover
 {
-	text-shadow: 2px 2px 25px white,	
-						  -1px 0px 0.5px black,
-						  0px -1px 0px black;
+	letter-spacing:0.2px;
 }
 
 #login
@@ -43,31 +57,40 @@ body
 	padding-top: 12px;
 }
 
+.login-icon
+{
+	font-size: 14px;
+	height: 30px;
+	background-color: transparent; 
+	padding-right:0px; 
+	margin-right:0px;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
 .myLoginInputs
 {
-	max-width: 180px;
-	color: #227733;
+	max-width: 170px;
 	height: 30px;
 	font-size: 14px;
 	border-radius: 4px;
 	border: 0.5px solid black;
 	padding: 3px;
+	margin-left:0px;
 }
-.myLoginInputs[type=email]:focus,
-.myLoginInputs[type=password]:focus
+.myLoginInputs:focus
 {
 	color: black;
 	border: 1.5px solid black;
-	-webkit-box-shadow: 0px 0px 1px 6px rgba(128,217,138,1);
-	-moz-box-shadow: 0px 0px 1px 6px rgba(128,217,138,1);
-	box-shadow: 0px 0px 3px 1px rgba(128,217,138,1);
 }
 .myLoginInputs[type=submit]
 {
-	width: 120px;
+	margin-top: 3px;
+	margin-left: 10px;
+	width: 110px;
 	background-color: #44bc53;
 	cursor: pointer;
-	color: #ededed;
+	color: white;
 	text-shadow:
 	1px 1px 0 black;
 	outline: none;
@@ -84,6 +107,7 @@ body
 
 .registerForm
 {
+	background-color: white;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 450px;
@@ -93,128 +117,70 @@ body
 	border-radius: 15px;
 	border-color: #444444;
 	padding-top: 15px;
-	-webkit-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
-	-moz-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
+	-webkit-box-shadow: inset 0px 0px 11px 5px #444444;
+	-moz-box-shadow: inset 0px 0px 11px 5px #444444;
 	box-shadow: inset 0px 0px 11px 5px #444444;
 }
 
 .myRegisterInputs
 {
-	color: #575757;
-	max-width: 85%;
 	height: 40px;
 	padding: 3px;
 	font-size: 18px;
-	border-radius: 5px;
-	border: 1.5px solid green;
+	border: 1.5px solid #44ab53;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
 }
 .myRegisterInputs[type=text]
 {
 	margin-top: 20px;
 }
-.myRegisterInputs[type=text]:focus
+.myRegisterInputs:focus
 {
-	color: black;
-	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 140px -50px #ed5543;
-	-moz-box-shadow: inset 0px 0px 140px -50px #ed5543;
-	box-shadow: inset 0px 0px 140px -50px #ed5543;	
-	border: 1.5px solid #333;	
+	-webkit-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	-moz-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	box-shadow: inset 0px 0px 140px -50px #44ab53;	
 	outline: none;
 	background-color: white;
-}
-.myRegisterInputs[type=email]:focus
-{
-	color: black;
-	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	-moz-box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	border: 1.5px solid #333;
-	background-color: white;
-	outline: none;
-}
-.myRegisterInputs[type=password]:focus
-{
-	color: black;
-	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 150px -50px  #5577cc;
-	-moz-box-shadow: inset 0px 0px 150px -50px  #5577cc;
-	box-shadow: inset 0px 0px 150px -50px  #5577cc;
-	border: 1.5px solid #333;
-	background-color: white;
-	outline: none;
 }
 
 .myRegisterInputs[type=submit]
 {
-	height: 60px;
+	height: 44px;
+	width: 160px;
 	background-color: #44ab53;
 	font-size:20px;
-	font-style: italic;
-	color: #dddddd;
-	padding: 15px 10px;
-	margin-bottom: 30px;
-	border-radius: 15px;
+	color: white;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	border-radius: 10px;
 	cursor: pointer;
-	letter-spacing: 2px;
-	margin-top: 20px;
 	border: 1.5px solid #222;
-	-webkit-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
-	-moz-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
-	box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
-	text-shadow: 1px 1px 25px white,	
-						  1px 1px 1px black,
-						  -1px 1px 1px black,
-						  1px -1px 1px black,
-						  -1px -1px 1px black;						  
+	-webkit-box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
+	-moz-box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
+	box-shadow: inset 0px 0px 21px 2px rgba(18,18,17,1);		
+	text-shadow: 0.5px 0.5px 0.5px black,
+						  -0.5px 0.5px 0.5px black,
+						  0.5px -0.5px 0.5px black,
+						  -0.5px -0.5px 0.5px black;		
 }
 .myRegisterInputs[type=submit]:hover
 {
-	background-color: #449953;
-	color: white;
-	text-shadow: 1px 1px 1px black,
-						  -1px 1px 1px black,
-						  1px -1px 1px black,
-						  -1px -1px 1px black;		
+	height: 46px;
+	width: 162px;
+	margin-top: 29px;
+	margin-bottom: 39px;
+	
 }
 
-#sideLogo
+.menu-icon
 {
-	margi-left: auto;
-	margin-right: auto;
-	color: #EEE9E9;
-	margin-top: 80px;
-	font-size: 52px;
-	letter-spacing: 5px;
-	text-shadow: 
-	5px 5px  10px #5577cc,
-	3px -3px 5px #44ab53,
-	-5px 4px 10px black,
-	-4px -3px 15px #ed5543;				 
+	height: 26px;
+	font-size: 26px;
+	background-color: transparent; 
+	padding: 2px;
 }
 
-#smallLogo
-{
-	color: #EEE9E9;
-	float: right;
-	margin-top: 100px;
-	margin-right: 7%;
-	text-align: center;
-	font-size: 30px;
-	letter-spacing: 30px;
-	text-shadow: 
-	5px 5px  10px #5577cc,
-	3px -3px 5px #44ab53,
-	-5px 4px 10px black,
-	-4px -3px 15px #ed5543;				 
-}
-
-.icons
-{
-	text-align: center;
-	padding-bottom: 10px;
-}
 .menu
 {
 	text-align: center;
@@ -235,13 +201,13 @@ body
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;
-	width: 220px;
+	width: 250px;
 	height: 40px;
 }
 
 .menu > ul >li:hover
 {
-	width: 226px;
+	width: 256px;
 }
 
 .menu > ul a
@@ -288,6 +254,7 @@ body
 
 #tableContainer
 {
+	background-color: white;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 50px;
@@ -301,7 +268,7 @@ body
 	box-shadow: inset 0px 0px 11px 5px #444444;
 }
 
-#dropdownMenuContainer
+.dropdownMenuContainer
 {
 	margin-top: 35px;
 	margin-bottom: -55px;
@@ -348,7 +315,6 @@ body
 	margin-left: auto;
 	margin-right: auto;
 	padding: 8px;
-	width: 50%;
 }
 
 .amountGetting,
@@ -366,37 +332,27 @@ body
 	border-radius: 5px;
 	border: 1.5px solid green;
 }
-.amountGetting:focus
-{
-	color: black;
-	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 140px -50px #ed5543;
-	-moz-box-shadow: inset 0px 0px 140px -50px #ed5543;
-	box-shadow: inset 0px 0px 140px -50px #ed5543;	
-	border: 1.5px solid #333;	
-	outline: none;
-	background-color: white;
-}
+
+.amountGetting:focus,
 #dateGetting:focus
 {
 	color: black;
 	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	-moz-box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	box-shadow: inset 0px 0px 150px -50px  #44ab53;
-	border: 1.5px solid #333;
-	background-color: white;
+	-webkit-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	-moz-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	box-shadow: inset 0px 0px 140px -50px #44ab53;	
+	border: 1.5px solid #333;	
 	outline: none;
+	background-color: white;
 }
 
 .commentGetting
 {
+	max-width: 180px;
 	margin-left: 3px;
-	max-width: 142px;
 	padding: 3px;
 	font-size: 16px;
 	text-align: left;
-	height: 30px;
 	color: #575757;
 	border-radius: 5px;
 	border: 1.5px solid green;
@@ -406,9 +362,9 @@ body
 {
 	color: black;
 	border-radius: 5px;
-	-webkit-box-shadow: inset 0px 0px 150px -50px  #5577cc;
-	-moz-box-shadow: inset 0px 0px 150px -50px  #5577cc;
-	box-shadow: inset 0px 0px 150px -50px  #5577cc;
+	-webkit-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	-moz-box-shadow: inset 0px 0px 140px -50px #44ab53;
+	box-shadow: inset 0px 0px 140px -45px #44ab53;	
 	border: 1.5px solid #333;
 	background-color: white;
 	outline: none;
@@ -724,7 +680,7 @@ float: right;
 	margin-top: 10px;
 	margin-bottom: -45px;
 	font-size: 25px;
-	color: red;
+	color: blue;
 	text-align: center;
 }
 
@@ -841,13 +797,13 @@ float: right;
 }
 .captcha
 {
-	padding-left: 0.5px;
+	padding-left: 0px;
 	width: 306px;
 	height: 80px;
 	margin-left: auto;
 	margin-right: auto;
-	border: 1.5px solid green;
-	border-radius: 7px;
+	border: 2px solid #44ab53;
+	border-radius: 5px;
 }
 
 .editFormTable
@@ -878,3 +834,12 @@ float: right;
 	margin-top: 0px;
 	margin-bottom:0px;
 }
+
+#logInfo
+{
+	color: #ddd;
+	margin-top: 18px;
+	font-size: 14px;
+}
+
+

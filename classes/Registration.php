@@ -12,9 +12,9 @@ class Registration
   
    function initFields()
   {
-    $this->fields['username'] = new FormInput('username', 'Nazwa użytkownika');
-    $this->fields['password'] = new FormInput('password', 'Hasło', '', 'password');
-    $this->fields['password2'] = new FormInput('password2', 'Powtórz hasło', '', 'password');
+    $this->fields['username'] = new FormInputPlusGlyphicon('user','username', 'Nazwa użytkownika');
+    $this->fields['password'] = new FormInputPlusGlyphicon('lock','password', 'Hasło', '', 'password');
+    $this->fields['password2'] = new FormInputPlusGlyphicon('lock','password2', 'Powtórz hasło', '', 'password');
   }
   
   function showRegistrationForm()

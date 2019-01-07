@@ -174,10 +174,20 @@ class Incomes
 		include 'templates/incomeAddingForm.php';
 	}
 	
+	function groupSortedIncomesByCategoryId(&$incomes)
+	{
+		usort($incomes, function($a, $b)
+		{
+		return strcmp($a->categoryId, $b->categoryId);
+		});
+	}
+	
 	function returnIncomesFromChosenPeriod()
 	{
-		$query = $this->dbo->query("SELECT incomes.id as incomeId, incomes_category_assigned_to_users.name as categoryName, incomes_category_assigned_to_users.id as categoryId, incomes.amount, incomes.date as incomeDate, incomes.comment FROM incomes, incomes_category_assigned_to_users WHERE incomes.user_id={$_SESSION['loggedUser']->id}  AND incomes_category_assigned_to_users.id=incomes.income_category_assigned_to_user_id AND incomes.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY income_category_assigned_to_user_id");
+		$query = $this->dbo->query("SELECT incomes.id as incomeId, incomes_category_assigned_to_users.name as categoryName, incomes_category_assigned_to_users.id as categoryId, incomes.amount, incomes.date as incomeDate, incomes.comment FROM incomes, incomes_category_assigned_to_users WHERE incomes.user_id={$_SESSION['loggedUser']->id}  AND incomes_category_assigned_to_users.id=incomes.income_category_assigned_to_user_id AND incomes.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY incomes.{$_SESSION['sortColumn']} {$_SESSION['sortType']}");
 		$incomes = $query->fetchAll(PDO::FETCH_OBJ);
+		
+		$this->groupSortedIncomesByCategoryId($incomes);
 		
 		return $incomes;
 	}
@@ -272,7 +282,5 @@ class Incomes
 		
 		return ACTION_OK;
 	}
-	
-	
 }
 ?>

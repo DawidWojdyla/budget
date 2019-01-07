@@ -220,10 +220,20 @@ class Expenses
 		include 'templates/expenseAddingForm.php';
 	}
 	
+	function groupSortedIncomesByCategoryId(&$expenses)
+	{
+		usort($expenses, function($a, $b)
+		{
+		return strcmp($a->categoryId, $b->categoryId);
+		});
+	}
+	
 	function returnExpensesFromChosenPeriod()
 	{
-		$query = $this -> dbo -> query("SELECT expenses.id as expenseId, expenses_category_assigned_to_users.name as categoryName, expenses_category_assigned_to_users.id as categoryId, expenses.payment_method_assigned_to_user_id as paymentMethodId, payment_methods_assigned_to_users.name as paymentMethodName, expenses.amount, expenses.date as expenseDate, expenses.comment FROM expenses, expenses_category_assigned_to_users, payment_methods_assigned_to_users WHERE expenses.user_id={$_SESSION['loggedUser']->id}  AND expenses_category_assigned_to_users.id=expenses.expense_category_assigned_to_user_id AND expenses.payment_method_assigned_to_user_id=payment_methods_assigned_to_users.id AND expenses.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY expense_category_assigned_to_user_id");
+		$query = $this -> dbo -> query("SELECT expenses.id as expenseId, expenses_category_assigned_to_users.name as categoryName, expenses_category_assigned_to_users.id as categoryId, expenses.payment_method_assigned_to_user_id as paymentMethodId, payment_methods_assigned_to_users.name as paymentMethodName, expenses.amount, expenses.date as expenseDate, expenses.comment FROM expenses, expenses_category_assigned_to_users, payment_methods_assigned_to_users WHERE expenses.user_id={$_SESSION['loggedUser']->id}  AND expenses_category_assigned_to_users.id=expenses.expense_category_assigned_to_user_id AND expenses.payment_method_assigned_to_user_id=payment_methods_assigned_to_users.id AND expenses.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY expenses.{$_SESSION['sortColumn']} {$_SESSION['sortType']}");
 		$expenses = $query->fetchAll(PDO::FETCH_OBJ);
+		
+		$this->groupSortedIncomesByCategoryId($expenses);
 		
 		return $expenses;
 	}

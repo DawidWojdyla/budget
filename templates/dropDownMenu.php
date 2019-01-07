@@ -1,4 +1,3 @@
-<div id="dropdownMenuContainer">
 <?PHP if(isset($_SESSION['isCustomSelected']) && $_SESSION['isCustomSelected'] == true): ?>
 	<div class="row">
 		<div class="col-sm-8" style="margin-top:8px;">

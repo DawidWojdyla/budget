@@ -1,5 +1,5 @@
 <div id="tableContainer">
-	<form action="index.php?action=addNewIncome" method="post">
+	<form action="index.php?action=addNewIncome" name="incomeAddingForm" id="incomeAddingForm" method="post">
 		<div class="tableHead">
 			Dodaj przychód
 		</div>
@@ -71,10 +71,7 @@
 					</div>
 				</td>
 				<td>
-					<input class="commentGetting" name="comment" type="text" 
-					<?PHP if (isset($_SESSION['commentSes'])): ?>
-						value="<?=$_SESSION['commentSes']?>"
-					<?PHP unset ($_SESSION['commentSes']); endif; ?> >
+					<textarea class="commentGetting" name="comment" id="comment" form="incomeAddingForm"><?PHP if(isset($_SESSION['commentSes'])):?><?=$_SESSION['commentSes']?><?PHP unset ($_SESSION['commentSes']); endif;?></textarea>
 				</td>
 			</tr>
 		</table>

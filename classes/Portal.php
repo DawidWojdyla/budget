@@ -186,10 +186,40 @@ class Portal extends MyDB
 			$_SESSION['whatPeriod'] = "Bieżący miesiąc";
 		}
 	}
+	
+	function setStatementSorting()
+	{
+		if(isset($_POST['whatSorting']))
+		{
+			//$_SESSION['whatSorting'] = $_POST['whatSorting'];
+			
+			switch($_POST['whatSorting'])
+			{
+				case 'rosnąca data': 
+					$_SESSION['sortColumn'] ='date';
+					$_SESSION['sortType'] = 'ASC';
+					break;
+				case 'malejąca kwota': 
+					$_SESSION['sortColumn'] = 'amount';
+					$_SESSION['sortType'] = 'DESC';
+					break;
+				case 'rosnąca kwota': 
+					$_SESSION['sortColumn'] = 'amount';
+					$_SESSION['sortType'] = 'ASC';
+					break;
+				default: 
+					$_SESSION['sortColumn'] = 'date';
+					$_SESSION['sortType'] = 'DESC';
+					break;
+			}		
+		}
+		//else $_SESSION['whatSorting'] = 'data - malejąco';
+	}
   
 	function showBalance()
 	{
 		$this->setBalancePeriod();
+		$this->setStatementSorting();
 		
 		$incomes = new Incomes($this->dbo);
 		$chosenIncomes = $incomes -> returnIncomesFromChosenPeriod();
@@ -206,6 +236,7 @@ class Portal extends MyDB
 			
 		include 'scripts/balanceScripts.php';
 		include 'scripts/charPie.php';
+		include 'templates/dropDownMenuOfSorting.php';
 		include 'templates/dropDownMenu.php';
 		include 'templates/balance.php';
 	  

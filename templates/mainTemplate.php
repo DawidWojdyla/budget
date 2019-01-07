@@ -39,7 +39,11 @@
 							</a>
 						</div>
 						<?php
-							$portal->getActualUser() ? include 'logoutDiv.php' : include 'loginDiv.php';
+							if ($portal->getActualUser()){
+								include 'logInfo.php';
+								include 'logoutDiv.php';
+							}
+							else include 'loginDiv.php';
 						?>
 					</div>
 				</div>

@@ -1,9 +1,9 @@
 <div id="tableContainer">
 	<section>
-		<div class="tableHead">
+		<div class="tableHead pointer">
 			Przychody
 		</div>
-		<table class="balanceTable">
+		<table class="balanceTable" id="incomeStatementTable">
 			<?PHP
 				if ($chosenIncomes): 
 					$incomeCategoryId  = $chosenIncomes[0]->categoryId;
@@ -23,8 +23,8 @@
 						<?PHP endif; ?>
 			
 				<tr class="i<?=$income->categoryId?>" id="i<?=$income->incomeId?>s" style="display:none; font-size: 14px; color:grey;" onclick="showEditButtons('i<?=$income->incomeId?>');">
-					<td colspan="2" class="text-center pointer"><div id="i<?=$income->incomeId?>comment"><?=$income->comment?></div></td>
 					<td class="text-left pointer"><div id="i<?=$income->incomeId?>date"><?=$income->incomeDate?></div></td>
+					<td colspan="2" class="text-center pointer"><div id="i<?=$income->incomeId?>comment"><?=$income->comment?></div></td>
 					<td class="text-right pointer"><div id="i<?=$income->incomeId?>amount"><?=number_format($income->amount, 2,'.',' ')?></div></td>
 				</tr>
 				<tr id="i<?=$income->incomeId?>"></tr>
@@ -39,10 +39,10 @@
 		</table>
 	</section>
 	<section>
-		<div class="tableHead">
+		<div class="tableHead pointer">
 			Wydatki
 		</div>
-		<table class="balanceTable">
+		<table class="balanceTable pointer" id="expenseStatementTable">
 			<?PHP
 				if ($chosenExpenses): 	
 					$expenseCategoryId  = $chosenExpenses[0]->categoryId;
@@ -62,9 +62,9 @@
 						<?PHP endif; ?>
 			
 				<tr class="e<?=$expense->categoryId?>" id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>s" style="display:none; font-size: 14px; color:grey;" onclick="showEditButtons('e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>');">
-					<td class="text-center pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>comment"><?=$expense->comment?></div></td>
-					<td class="text-center pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>paymentMethod"><?=$expense->paymentMethodName?></div></td>
 					<td class="text-left pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>date"><?=$expense->expenseDate?></div></td>
+					<td class="text-center pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>paymentMethod"><?=$expense->paymentMethodName?></div></td>
+					<td class="text-center pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>comment"><?=$expense->comment?></div></td>
 					<td class="text-right pointer"><div id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>amount"><?=number_format($expense->amount, 2,'.',' ')?></div></td>
 				</tr>
 				<tr id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>"></tr>
