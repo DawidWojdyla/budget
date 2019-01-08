@@ -1,144 +1,110 @@
 <script type="text/javascript">
 
 var lastChosenId = null;
-var isEditFormShown = false;
-var lastChosenCategory = null;
 
-/*function showTable(id)
+function closeModal(modalId)
 {
-	if (document.getElementById(id).style.display == "none")
-		document.getElementById(id).style.display = "table";
-	else document.getElementById(id).style.display = "none";	
+	$('#'+modalId).modal('hide');
 }
 
-function show2Tables(id1, id2)
+function openModal(modalId)
 {
-	showTable(id1);
-}*/
-
+	$('#'+modalId).modal('show');
+}
 
 function showClass(className)
 {
 	var positions = document.getElementsByClassName(className);
+
 	for (var i = 0; i < positions.length; ++i)
-		positions[i].style.display = 'table-row';
-}
+		if (positions[i].style.display == 'none')
+			positions[i].style.display = 'table-row';
+		else
+			positions[i].style.display = 'none';
+}	
 
-function hideClass(className)
+function removeItem(id)
 {
-	var positions = document.getElementsByClassName(className);
-	for (var i = 0; i < positions.length; ++i)
-		positions[i].style.display = 'none';
-}
+	let form = document.createElement('form');
+	form.action = 'index.php?action=removeItem';
+	form.method = 'POST';
 
+	form.innerHTML = '<input type="hidden" name="itemToBeRemoved" value="'+id+'">';
+	
+	document.body.append(form);
 
-function showItems(category)
-{
-	 if (lastChosenCategory != null)
-	 {
-		 hideClass(lastChosenCategory);
-	 }
-	 if(lastChosenCategory != category)
-	 {
-		showClass(category);
-		lastChosenCategory = category;
-	 }
-	 else
-		 lastChosenCategory = null;
-	 
-	if(lastChosenId != null)
-		showEditButtons(lastChosenId);
+	form.submit();
 }
 
 
 function highlightItem(id)
 {
-	if(document.getElementById(id+'s').style.color != "grey"){
-		document.getElementById(id+'s').style.color = "grey";
+	if(document.getElementById(id+'s').style.color != "#183e1e"){
+		document.getElementById(id+'s').style.color = "#183e1e";
 	}
 	else{
-		document.getElementById(id+'s').style.color = "red";
+		document.getElementById(id+'s').style.color = "#ab5344";
 	}
 }
-
-function showEditForm()
-{
-	if(!isEditFormShown)
+	function showEditForm(id)
 	{
-		comment = document.getElementById(lastChosenId+'comment').innerHTML;
-		date = document.getElementById(lastChosenId+'date').innerHTML;
-		amount = document.getElementById(lastChosenId+'amount').innerHTML;
+		
+		var comment = document.getElementById(id+'comment').innerHTML;
+		var date = document.getElementById(id+'date').innerHTML;
+		var amount = document.getElementById(id+'amount').innerHTML;
 		amount = amount.replace(/ /g, "");
-	
-		var editForm = '<td colspan="4"><form action="index.php?action=updateItem" method="post" autocomplete="off"><table class="editFormTable"><input type="hidden" name="itemToBeUpdated" value="'+lastChosenId+'">';
-		editForm += '<tr><td><div>Kwota</td><td colspan="2"><input class="amountGetting editFormInputs" name="amount" type="text" value="'+amount+'"/></div></td></tr>';
-		editForm += '<tr><td><div>Data</td><td colspan="2"><input class="commentGetting editFormInputs" name="date" type="date" value="'+date+'"/></td></tr>';
 		
-		if(lastChosenId.substr(0,1) == 'e')
-		{
-			paymentMethod = document.getElementById(lastChosenId+'paymentMethod').innerHTML;
-			editForm += '<tr><td>Sposób płatności</td><td colspan="2"><select class="commentGetting  editFormInputs" name="paymentMethodId">';
-			<?PHP foreach ($paymentMethods as $paymentMethod): ?>
-			editForm += '<option value="<?=$paymentMethod->id?>"';
-			var paymentMethodIdStartPosition = lastChosenId.indexOf("&") + 1;
-			if(lastChosenId.substr(paymentMethodIdStartPosition) == <?=$paymentMethod->id?>)
-				editForm += 'selected';
-			editForm += '><?=$paymentMethod->name?></option>';
-			<?PHP endforeach; ?>
+		var separatorPosition = id.indexOf("+");
+		var incomeId = id.substring(0, separatorPosition);
+		var rest = id.substr(separatorPosition+1);
+		
+		var editForm = '<form name="updatingForm" id="updatingForm" action="index.php?action=updateItem" method="post" autocomplete="off"><input type="hidden" name="itemToBeUpdated" value="'+incomeId+'">';
+		editForm += '<table class="editFormTable"><tr><td>Kwota</td><td><input class="amountGetting editFormInputs" style="max-width:160px;" name="amount" type="text" value="'+amount+'"/></td></tr>';
+		editForm += '<tr><td>Data</td><td><input class="commentGetting editFormInputs" name="date" type="date" value="'+date+'"/></td></tr>';
+		
+		if(id.substr(0,1) == 'e')
+			{
+				var paymentMethod = document.getElementById(id+'paymentMethod').innerHTML;
+				editForm += '<tr><td>Sposób płatności</td><td><select class="commentGetting  editFormInputs" name="paymentMethodId">';
+				<?PHP foreach ($paymentMethods as $paymentMethod): ?>
+				editForm += '<option value="<?=$paymentMethod->id?>"';
+				var paymentMethodIdStartPosition = rest.indexOf("&") + 1;
+				if(rest.substr(paymentMethodIdStartPosition) == <?=$paymentMethod->id?>)
+					editForm += 'selected';
+				editForm += '><?=$paymentMethod->name?></option>';
+				<?PHP endforeach; ?>
+				editForm += '</select></td></tr>';
+			}
+			
+			editForm += '<tr><td>Kategoria</td><td><select class="commentGetting  editFormInputs" name="categoryId">';
+			
+			if(id.substr(0,1) == 'i')
+			{
+				<?PHP foreach ($incomeCategories as $category): ?>
+				editForm += '<option value="<?=$category->id?>"';
+				if(rest == <?=$category->id?>)
+					editForm += 'selected';
+				editForm += '><?=$category->name?></option>';
+				<?PHP endforeach; ?>
+			}
+			else
+			{
+				<?PHP foreach ($expensesCategories as $category): ?>
+				editForm += '<option value="<?=$category->id?>"';
+				if(rest.substring(0,paymentMethodIdStartPosition-1) == <?=$category->id?>)
+					editForm += 'selected';
+				editForm += '><?=$category->name?></option>';
+				<?PHP endforeach; ?>
+			}
+			
 			editForm += '</select></td></tr>';
-		}
-		editForm += '<tr><td>Kategoria</td><td colspan="2"><select class="commentGetting  editFormInputs" name="categoryId">';
+			editForm += '<tr><td>Komentarz</td><td><textarea class="commentGetting editFormInputs" form="updatingForm" name="comment" id="comment" form="editForm">'+comment+'</textarea></td></tr>';
+			editForm += '<tr><td colspan="2"><div class="buttons editButtons" style="text-align: center; width:100%;"><input type="submit" class="add" value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'editFormModal\');"></div></td></tr></table></form>';
+			
+		document.getElementById("editFormModalBody").innerHTML = editForm;
 		
-		if(lastChosenId.substr(0,1) == 'i')
-		{
-			<?PHP foreach ($incomeCategories as $category): ?>
-			editForm += '<option value="<?=$category->id?>"';
-			if(lastChosenCategory.substr(1) == <?=$category->id?>)
-				editForm += 'selected';
-			editForm += '><?=$category->name?></option>';
-			<?PHP endforeach; ?>
-		}
-		else
-		{
-			<?PHP foreach ($expensesCategories as $category): ?>
-			editForm += '<option value="<?=$category->id?>"';
-			if(lastChosenCategory.substr(1) == <?=$category->id?>)
-				editForm += 'selected';
-			editForm += '><?=$category->name?></option>';
-			<?PHP endforeach; ?>
-		}
+		openModal('editFormModal');
 		
-		editForm += '</select></td></tr>';
-		editForm += '<tr><td><div>Komentarz</td><td colspan="2"><input class="commentGetting editFormInputs" name="comment" type="text" value="'+comment+'"/></div></td></tr>';
 		
-		editForm += '<tr><td colspan="3"><div class="buttons editButtons" style="text-align: center; margin: -20px;"><input type="submit" class="add" value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="showEditButtons(lastChosenId);" /></div></td></tr></table></form></td>';
-		
-		document.getElementById(lastChosenId).innerHTML = editForm;
 	}
-
-}	
-
-function showConfirmation()
-{
-	document.getElementById(lastChosenId).innerHTML = '<td colspan="4"><form action="index.php?action=removeItem" method="post"><div class="text-center" style="font-size: 14px; color: black; margin-top:-8px; margin-bottom:-8px;">Czy na pewno chcesz usunąć wybraną pozycję?</div><div class="buttons editButtons" style="text-align: center;"><input type="hidden" name="itemToBeRemoved" value="'+lastChosenId+'"><input type="submit" class="add" value="Tak"><input class="cancel" value="Anuluj" type="button" onclick="showEditButtons(lastChosenId);" /></div></form></td>';
-}
-
-function showEditButtons(id)
-{
-	 if(lastChosenId != id && lastChosenId != null)
-	{
-		document.getElementById(lastChosenId).innerHTML = '';
-		highlightItem(lastChosenId);
-	}
-	 if (document.getElementById(id).innerHTML == ''){
-		document.getElementById(id).innerHTML = '<td colspan="4"><div class="buttons editButtons" style="text-align: center; margin-top:-8px; margin-bottom:-5px;"><input type="submit" class="add" value="Edytuj" onclick="showEditForm();"/><input class="cancel" value="Usuń" type="button" onclick="showConfirmation();" /></div></td>';
-		highlightItem(id);
-		lastChosenId = id;
-	}
-	else{
-		document.getElementById(id).innerHTML = '';
-		highlightItem(id);
-		lastChosenId = null;
-	}
-}
 </script>

@@ -1,5 +1,5 @@
 <div class="dropdownMenuContainer">
-	<div class="dropdownMenu" style="float: left;">
+	<div class="dropdownMenu" style="float: left; width: 120px;">
 		<button class="dropButton">Sortowanie</button>
 		<form action="index.php?action=showBalance" method="post">
 			<div id="periods">

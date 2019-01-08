@@ -30,7 +30,7 @@
 					</div>
 				</td>
 				<td>
-					<input id="dateGetting" name="date" type="date" value="<?PHP
+					<input class="dateGetting" name="date" type="date" value="<?PHP
 						if (isset($_SESSION['dateSes'])):
 							echo $_SESSION['dateSes'];
 							unset ($_SESSION['dateSes']);

@@ -318,7 +318,7 @@ h1
 }
 
 .amountGetting,
-#dateGetting
+.dateGetting
 {
 	margin-left: 3px;
 	max-width: 143px;
@@ -334,7 +334,7 @@ h1
 }
 
 .amountGetting:focus,
-#dateGetting:focus
+.dateGetting:focus
 {
 	color: black;
 	border-radius: 5px;
@@ -447,7 +447,7 @@ h1
 
 .add:hover
 {
-	background-color: #5577cc;
+	background-color: #86cf91;
 	color: #333;
 	text-shadow: 
 	2px 2px 25px #ddd,
@@ -457,7 +457,7 @@ h1
 }
 .cancel:hover
 {
-	background-color: #ed5543;
+	background-color: #ab5344;
 	color: #333;
 	text-shadow: 
 	2px 2px 25px #ddd,
@@ -467,11 +467,11 @@ h1
 }
 
 .dropButton {
-	 width: 180px;
+	 width: 160px;
 	height: 30px;
 	background-color: #44ab53;
 	color: #ddd;
-	font-size: 18px;
+	font-size: 15px;
 	-webkit-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
 	-moz-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
 	box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
@@ -484,8 +484,6 @@ h1
 .dropdownMenu 
 {
 	padding: 0px;
-	margin-left: auto;
-	margin-right: auto;
 	float: right;
 	margin-bottom:8px;
 	margin-top: 10px;
@@ -507,7 +505,7 @@ h1
 	background-image: url("img/brushed.png");
     display: none;
     position: absolute; 
-    width: 180px;
+    width: 160px;
 	border: 1.5px solid #222;
 	border-radius: 15px;
 	-webkit-box-shadow:  inset 0px 0px 21px 3px rgba(18,18,17,1);
@@ -596,20 +594,36 @@ float: right;
 .balanceTable td
 {
 	padding: 2px;
-	min-width: 80px;
 	max-width: 180px;
-	
-	
+}
+.balanceTable td:first-child
+{
+	min-width: 84px;
 }
 
+.balanceTable td:last-child
+{
+	min-width: 52px;
+}
+
+.balanceTable tr:hover >td
+{
+	color: #183e1e;
+}
 .balanceTable tr:hover
 {
-	/*-webkit-box-shadow:  inset 0px 0px 21px 3px rgba(18,18,17,1);
-	-moz-box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
-	box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
-	border-radius: 15px;*/
 	cursor: default;
+}
 
+.balance-icon
+{
+	display: inline;
+	font-size: 16px;
+	background-color: transparent; 
+	padding:2px;
+	margin: 1px;
+	color: #4468ab;
+	cursor: pointer;
 }
 
 /*.balanceTable tr:nth-child(even)
@@ -677,11 +691,13 @@ float: right;
 
 .message
 {
-	margin-top: 10px;
-	margin-bottom: -45px;
-	font-size: 25px;
-	color: blue;
+	width: 100%;
+	height:16px;
+	margin-bottom:-16px;
 	text-align: center;
+	font-size: 16px;
+	font-weight:bold;
+	color: #183e1e;
 }
 
 .return
@@ -724,15 +740,9 @@ float: right;
 	margin: 5px;
 	padding: 2px;
 	font-size: 12px;
-	width: 56px;
-	height: 25px;
+	width: 62px;
+	height: 28px;
 }
-
-.editButtons
-{
-	text-align: left;
-}
-
 .pointer
 {
 	cursor: pointer;
@@ -808,29 +818,25 @@ float: right;
 
 .editFormTable
 {
-	width: 100%;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 200px;
 	
 }
 
 .editFormTable td
 {
-	font-size: 15px;	
+	font-size: 17px;	
 	padding: 2px;
 	margin: 0px;
-	min-width: 120px;
-}
-
-.editFormTable tr:last-child > td
-{
-	border-top: none;
-}
-.editFormTable tr:hover> td
-{
+	min-width: 100px;
 	font-weight: bold;
 }
+
 .editFormInputs
 {
-	min-width: 160px;
+	width: 150px;
 	margin-top: 0px;
 	margin-bottom:0px;
 }
@@ -841,5 +847,3 @@ float: right;
 	margin-top: 18px;
 	font-size: 14px;
 }
-
-

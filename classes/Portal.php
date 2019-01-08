@@ -132,57 +132,38 @@ class Portal extends MyDB
 	}
 	
 	function setBalancePeriod()
-	{
-		if (isset($_POST['custom']))
+	{	
+		if(isset($_POST['period']))
 		{
-			$_SESSION['isCustomSelected'] = true;
-		}
-		else if (isset($_POST['previousMonth']))
-		{
-			$_SESSION['dateFrom'] = date('Y-m-d', strtotime('first day of previous month'));
-			$_SESSION['dateTo'] = date('Y-m-d', strtotime('last day of previous month'));
-			$_SESSION['whatPeriod'] = "Poprzedni miesiąc";
-		}
-		else if (isset($_POST['thisYear']))
-		{
-			$_SESSION['dateFrom'] = date('Y-01-01');
-			$_SESSION['dateTo'] = date('Y-m-d');
-			$_SESSION['whatPeriod'] = "Bieżący rok";
-		}
-		else if ( isset($_POST['okay']))
-		{
-			$_SESSION['dateFromSes'] = $_POST['dateFrom'];
-			$_SESSION['dateToSes'] = $_POST['dateTo'];
-			
-			if ($_POST['dateFrom'] =="" || $_POST['dateTo']=="")
+			switch($_POST['period'])
 			{
-				$_SESSION['dateError'] = "Musisz podać zakres dat!";
-			}
-			else
-			{
-				$_SESSION['dateFrom'] = $_POST['dateFrom'];
-				$_SESSION['dateTo'] = $_POST['dateTo'];
-			}
-		}
-		else if (isset($_POST['cancel']))
-		{
-			if (isset($_SESSION['dateFromSes']) && $_SESSION['dateFromSes']!="" && $_SESSION['dateToSes']!=""  )
-			{
-				$_SESSION['dateTo'] = date('Y-m-d');
-				$_SESSION['dateFrom'] = date('Y-m-01');
-			}
-			unset($_SESSION['isCustomSelected']);
-			unset($_SESSION['dateFromSes']);
-			unset($_SESSION['dateToSes']);
-		}
-		else if(isset($_SESSION['showLastChosenPeriod']))
-		{
-			unset($_SESSION['showLastChosenPeriod']);
+				case 'Poprzedni miesiąc': 
+					$_SESSION['dateFrom'] = date('Y-m-d', strtotime('first day of previous month'));
+					$_SESSION['dateTo'] = date('Y-m-d', strtotime('last day of previous month'));
+					$_SESSION['whatPeriod'] = $_POST['period'];
+					break;
+				case 'Bieżący rok': 
+					$_SESSION['dateFrom'] = date('Y-01-01');
+					$_SESSION['dateTo'] = date('Y-m-d');
+					$_SESSION['whatPeriod'] = $_POST['period'];
+					break;
+				case 'Pokaż': 
+					$_SESSION['dateFrom'] = $_POST ['dateFrom'];
+					$_SESSION['dateTo'] = $_POST['dateTo'];
+					$_SESSION['whatPeriod'] = substr(str_replace('-', '/', $_POST ['dateFrom']),2).' - '.substr(str_replace('-', '/', $_POST ['dateTo']),2);
+					break;
+				case 'Bieżący miesiąc':
+				default: 
+					$_SESSION['dateTo'] = date('Y-m-d');
+					$_SESSION['dateFrom'] = date('Y-m-01');
+					$_SESSION['whatPeriod'] = 'Bieżący miesiąc';
+					break;
+			}		
 		}
 		else
 		{
-			$_SESSION['dateTo'] = date('Y-m-d');
 			$_SESSION['dateFrom'] = date('Y-m-01');
+			$_SESSION['dateTo'] = date('Y-m-d');
 			$_SESSION['whatPeriod'] = "Bieżący miesiąc";
 		}
 	}

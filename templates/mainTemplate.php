@@ -49,11 +49,10 @@
 				</div>
 			</header>
 			<div id="mainContentDiv">
-			
 				<?php if($message): ?>
-				<div id="mess" class="message"><?=$message?></div>
-				<?php endif; ?>
-				
+				<div id="mess" class="message">
+					<?=$message?><?php endif; ?>
+				</div>
 				<?php if($delay): ?>
 					<script> setTimeout(function(){ $('#mess').fadeOut();}, <?=$delay?>); </script>
 				<?php endif; ?>
