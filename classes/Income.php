@@ -1,21 +1,21 @@
 <?php
 class Income
 {
-	private $id;
-	private $userId;
-	private $categoryId;
-	private $amount;
-	private $incomeDate;
-	private $comment;
+	public $id;
+	public $userId;
+	public $categoryId;
+	public $amount;
+	public $incomeDate;
+	public $comment;
 	
 	function __construct($id, $userId, $amount, $incomeDate, $categoryId, $comment = "")
 	{
 		$this -> id 					= $id;
-		$this -> categoryId 	= $categoryId;
+		$this -> categoryId 		= $categoryId;
 		$this -> amount 			= $amount;
 		$this -> incomeDate	= $incomeDate;
 		$this -> comment 		= $comment;
-		$this -> userId			= $userId;
+		$this -> userId				= $userId;
 	}
 	
 	function setId($id)

@@ -23,7 +23,7 @@ function showClass(className)
 			positions[i].style.display = 'none';
 }	
 
-function removeItem(id)
+/*function removeItem3(id)
 {
 	let form = document.createElement('form');
 	form.action = 'index.php?action=removeItem';
@@ -34,6 +34,16 @@ function removeItem(id)
 	document.body.append(form);
 
 	form.submit();
+}*/
+
+
+function removeItem(id)
+{
+	var modalBody = 'Czy napewno chcesz usunąć wybraną pozycję?';
+	modalBody += '<form action="index.php?action=removeItem" method="post"><div class="buttons editButtons"><input type="hidden" name="itemToBeRemoved" value="'+id+'"><input type="submit" class="add" value="Tak"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');" /></div></form>';
+	
+	document.getElementById("modalBody").innerHTML = modalBody;
+	$('#modal').modal('show');
 }
 
 
@@ -60,12 +70,12 @@ function highlightItem(id)
 		
 		var editForm = '<form name="updatingForm" id="updatingForm" action="index.php?action=updateItem" method="post" autocomplete="off"><input type="hidden" name="itemToBeUpdated" value="'+incomeId+'">';
 		editForm += '<table class="editFormTable"><tr><td>Kwota</td><td><input class="amountGetting editFormInputs" style="max-width:160px;" name="amount" type="text" value="'+amount+'"/></td></tr>';
-		editForm += '<tr><td>Data</td><td><input class="commentGetting editFormInputs" name="date" type="date" value="'+date+'"/></td></tr>';
+		editForm += '<tr><td>Data</td><td><input class="dateGetting editFormInputs" name="date" type="date" value="'+date+'"/></td></tr>';
 		
 		if(id.substr(0,1) == 'e')
 			{
 				var paymentMethod = document.getElementById(id+'paymentMethod').innerHTML;
-				editForm += '<tr><td>Sposób płatności</td><td><select class="commentGetting  editFormInputs" name="paymentMethodId">';
+				editForm += '<tr><td>Sposób płatności</td><td><select class="dateGetting  editFormInputs" name="paymentMethodId">';
 				<?PHP foreach ($paymentMethods as $paymentMethod): ?>
 				editForm += '<option value="<?=$paymentMethod->id?>"';
 				var paymentMethodIdStartPosition = rest.indexOf("&") + 1;
@@ -76,7 +86,7 @@ function highlightItem(id)
 				editForm += '</select></td></tr>';
 			}
 			
-			editForm += '<tr><td>Kategoria</td><td><select class="commentGetting  editFormInputs" name="categoryId">';
+			editForm += '<tr><td>Kategoria</td><td><select class="dateGetting  editFormInputs" name="categoryId">';
 			
 			if(id.substr(0,1) == 'i')
 			{

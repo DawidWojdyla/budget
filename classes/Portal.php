@@ -91,24 +91,32 @@ class Portal extends MyDB
 	  
 	function addNewIncome()
 	{
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
 		$incomes = new Incomes ($this->dbo);
 		return $incomes -> addNewIncome();
 	}
-  
-	function showIncomeAddingForm()
-	{
-		$incomes = new Incomes ($this->dbo);
-		return $incomes->showIncomeAddingForm();
-	}
-  
+	
 	function addNewExpense()
 	{
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
+		
 		$expenses = new Expenses ($this->dbo);
 		return $expenses->addNewExpense();
 	}
   
+	function showIncomeAddingForm()
+	{
+		if(!$this->dbo) return SERVER_ERROR;
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
+		$incomes = new Incomes ($this->dbo);
+		return $incomes->showIncomeAddingForm();
+	}
+  
 	function showExpenseAddingForm()
 	{
+		if(!$this->dbo) return SERVER_ERROR;
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
+		
 		$expenses = new Expenses ($this->dbo);
 		return $expenses->showExpenseAddingForm();
 	}
@@ -121,6 +129,7 @@ class Portal extends MyDB
 	
 	function registerUser()
 	{
+		if(!$this->dbo) return SERVER_ERROR;
 		$registration = new Registration($this->dbo);
 		return $registration->registerUser();
 	}
@@ -194,11 +203,18 @@ class Portal extends MyDB
 					break;
 			}		
 		}
-		//else $_SESSION['whatSorting'] = 'data - malejąco';
+		else
+		{
+			$_SESSION['sortColumn'] = 'date';
+			$_SESSION['sortType'] = 'DESC';
+		}
 	}
   
 	function showBalance()
 	{
+		if(!$this->dbo) return SERVER_ERROR;
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
+		
 		$this->setBalancePeriod();
 		$this->setStatementSorting();
 		
@@ -246,7 +262,7 @@ class Portal extends MyDB
 	
 	function updateItem()
 	{
-		$_SESSION['showLastChosenPeriod'] = true;
+		//$_SESSION['showLastChosenPeriod'] = true;
 		
 		if( !$this->dbo) return SERVER_ERROR;
 		
@@ -269,6 +285,9 @@ class Portal extends MyDB
 	
 	function showSettings()
 	{
+		if(!$this->dbo) return SERVER_ERROR;
+		if (!$this->loggedUser)  return LOGIN_REQUIRED;
+		
 		$incomes = new Incomes($this->dbo);
 		$incomesCategories = $incomes->returnCategoriesArrayExceptOthers();
 		$incomeCategoriesAmount  = count($incomesCategories);
@@ -276,6 +295,10 @@ class Portal extends MyDB
 		$expenses = new Expenses($this->dbo);
 		$expenseCategories = $expenses->returnCategoriesArrayExceptOthers();
 		$expenseCategoriesAmount = count($expenseCategories);
+		
+		$paymentMethods = $expenses->returnPaymentMethodsArrayExceptOther();
+		$paymentMethodsAmount = count($paymentMethods);
+		
 		
 		$lastIncomes = $incomes->returnLastAddedIncomes(5);
 		$lastExpenses = $expenses->returnLastAddedExpenses(5);
@@ -387,6 +410,11 @@ class Portal extends MyDB
 		  $expenses = new Expenses($this->dbo);
 		  return $expenses->setNewCategoryName($categoryId , $newCategoryName);
 	  }
+	  else if($_POST['typeOfCategory'] == 'p')
+	  {
+		  $expenses = new Expenses($this->dbo);
+		  return $expenses->setNewPaymentMethodName($categoryId , $newCategoryName);
+	  }
 	  else return ACTION_FAILED;
   }
   
@@ -408,6 +436,11 @@ class Portal extends MyDB
 			$expenses = new Expenses($this->dbo);
 			return $expenses -> deleteCategory($id);
 		}
+		else if(substr($_POST['itemToBeRemoved'], 0, 1) == 'p')
+		{
+			$expenses = new Expenses($this->dbo);
+			return $expenses -> deletePaymentMethodCategory($id);
+		}
 		else return ACTION_FAILED;
 	}
   
@@ -423,6 +456,12 @@ class Portal extends MyDB
   {
 	  $expenses = new Expenses($this->dbo);
 	  return $expenses->addNewExpenseCategory();
+  }
+  
+  function addNewPaymentMethod()
+  {
+	  $expenses = new Expenses($this->dbo);
+	  return $expenses->addNewPaymentMethod();	  
   }
   
   function editIncomeCategoriesPositions()
@@ -445,6 +484,17 @@ class Portal extends MyDB
 		  
 	  $expenses = new Expenses($this->dbo);
 	  return $expenses->editCategoryPositions();
+  }
+  
+  function editPaymentMethodsPositions()
+  {
+	  if( !$this->dbo) return SERVER_ERROR;
+	  
+	  if($_POST['paymentMethods'] !== array_unique($_POST['paymentMethods']))
+		  return CATEGORY_POSITIONS_ARE_NOT_UNIQUE;
+		  
+	  $expenses = new Expenses($this->dbo);
+	  return $expenses->editPaymentMethodPositions();
   }
   
 }

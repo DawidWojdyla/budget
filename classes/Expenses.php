@@ -212,6 +212,17 @@ class Expenses
 		return $paymentMethods;
 	}
 	
+	function returnPaymentMethodsArrayExceptOther()
+	{
+		$paymentMethods = array();
+		
+		if($result = $this->dbo->query("SELECT id, name, position FROM payment_methods_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name <> 'Inny' ORDER BY position"))
+			$paymentMethods = $result->fetchAll(PDO::FETCH_OBJ);
+		
+		return $paymentMethods;
+	}
+	
+	
 	function showExpenseAddingForm()
 	{
 		$categories = $this -> returnCategoriesArray();
@@ -220,20 +231,40 @@ class Expenses
 		include 'templates/expenseAddingForm.php';
 	}
 	
-	function groupSortedIncomesByCategoryId(&$expenses)
+	function groupSortedIncomesByCategoryIdWithBubbleSort(&$my_array )
+	{
+		do
+		{
+			$swapped = false;
+			for( $i = 0, $c = count($my_array) - 1; $i < $c; $i++ )
+			{
+				if( $my_array[$i]->categoryId > $my_array[$i + 1]->categoryId )
+				{
+					$temp = $my_array[$i + 1];
+					$my_array[$i + 1] = $my_array[$i];
+					$my_array[$i] = $temp;
+				
+					$swapped = true;
+				}
+			}
+		}
+		while($swapped);
+	}
+	
+	/*function groupSortedIncomesByCategoryId(&$expenses)
 	{
 		usort($expenses, function($a, $b)
 		{
 		return strcmp($a->categoryId, $b->categoryId);
 		});
-	}
+	}*/
 	
 	function returnExpensesFromChosenPeriod()
 	{
 		$query = $this -> dbo -> query("SELECT expenses.id as expenseId, expenses_category_assigned_to_users.name as categoryName, expenses_category_assigned_to_users.id as categoryId, expenses.payment_method_assigned_to_user_id as paymentMethodId, payment_methods_assigned_to_users.name as paymentMethodName, expenses.amount, expenses.date as expenseDate, expenses.comment FROM expenses, expenses_category_assigned_to_users, payment_methods_assigned_to_users WHERE expenses.user_id={$_SESSION['loggedUser']->id}  AND expenses_category_assigned_to_users.id=expenses.expense_category_assigned_to_user_id AND expenses.payment_method_assigned_to_user_id=payment_methods_assigned_to_users.id AND expenses.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY expenses.{$_SESSION['sortColumn']} {$_SESSION['sortType']}");
 		$expenses = $query->fetchAll(PDO::FETCH_OBJ);
 		
-		$this->groupSortedIncomesByCategoryId($expenses);
+		$this->groupSortedIncomesByCategoryIdWithBubbleSort($expenses);
 		
 		return $expenses;
 	}
@@ -245,12 +276,19 @@ class Expenses
 		return false;
 	}
 	
+	function checkIfPaymentMethodNameExists($categoryName)
+	{
+		$query = $this->dbo->query("SELECT id from payment_methods_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name='{$categoryName}'");
+		if ($query-> rowCount()) return true;
+		return false;
+	}
+	
 	function addNewExpenseCategory()
 	{
 		if( !$this->dbo) return SERVER_ERROR;
-		if (!isset($_POST['newExpenseCategory']) || $_POST['newExpenseCategory'] == '') return FORM_DATA_MISSING;
+		if (!isset($_POST['newCategoryName']) || $_POST['newCategoryName'] == '') return FORM_DATA_MISSING;
 	  
-		$newCategoryName = filter_input(INPUT_POST, 'newExpenseCategory');
+		$newCategoryName = filter_input(INPUT_POST, 'newCategoryName');
 		$newCategoryName = mb_convert_case($newCategoryName, MB_CASE_TITLE, "UTF-8");
 	  
 		if($this->checkIfCategoryNameExists($newCategoryName)) return CATEGORY_NAME_ALREADY_EXISTS;
@@ -270,11 +308,48 @@ class Expenses
 		return ACTION_OK;	  
 	}
 	
+	function addNewPaymentMethod()
+	{
+		if( !$this->dbo) return SERVER_ERROR;
+		if (!isset($_POST['newCategoryName']) || $_POST['newCategoryName'] == '') return FORM_DATA_MISSING;
+	  
+		$newCategoryName = filter_input(INPUT_POST, 'newCategoryName');
+		$newCategoryName = mb_convert_case($newCategoryName, MB_CASE_TITLE, "UTF-8");
+	  
+		if($this->checkIfPaymentMethodNameExists($newCategoryName)) return CATEGORY_NAME_ALREADY_EXISTS;
+	  
+		if(!$query = $this->dbo->query("SELECT id, position FROM payment_methods_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name='Inny'"))
+			return ACTION_FAILED;
+		
+		$otherCategoryData = $query ->fetch(PDO::FETCH_OBJ);
+		
+		if(!$query = $this->dbo->query("UPDATE payment_methods_assigned_to_users SET position=position+1 WHERE id={$otherCategoryData->id}"))
+			return ACTION_FAILED;
+				
+		$query = $this->dbo->prepare("INSERT INTO payment_methods_assigned_to_users (id, user_id, name, position) VALUES (NULL, {$_SESSION['loggedUser']->id}, :newCategoryName, {$otherCategoryData->position})");
+		$query->bindValue(':newCategoryName', $newCategoryName, PDO::PARAM_STR);	
+		
+		if (!$query -> execute()) return ACTION_FAILED;
+		return ACTION_OK;	  
+	}
+	
 	function setNewCategoryName($categoryId , $categoryName)
 	{
 		if($this->checkIfCategoryNameExists($categoryName)) return CATEGORY_NAME_ALREADY_EXISTS;
 		
 		$query = $this->dbo->prepare("UPDATE expenses_category_assigned_to_users SET name=:categoryName WHERE id=:categoryId");
+		$query->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);	
+		$query->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);	
+		
+		if (!$query -> execute()) return ACTION_FAILED;
+		return ACTION_OK;	  
+	}
+	
+	function setNewPaymentMethodName($categoryId , $categoryName)
+	{
+		if($this->checkIfPaymentMethodNameExists($categoryName)) return CATEGORY_NAME_ALREADY_EXISTS;
+		
+		$query = $this->dbo->prepare("UPDATE payment_methods_assigned_to_users SET name=:categoryName WHERE id=:categoryId");
 		$query->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);	
 		$query->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);	
 		
@@ -313,7 +388,38 @@ class Expenses
 		return ACTION_OK;
 	}
 	
-		function editCategoryPositions()
+	function deletePaymentMethodCategory($id)
+	{
+		if(!$query = $this->dbo->query("SELECT name, position FROM payment_methods_assigned_to_users WHERE id={$id}"))
+			return ACTION_FAILED;
+		$category = $query ->fetch(PDO::FETCH_OBJ);
+		
+		$this->dbo->setAttribute(PDO::ATTR_AUTOCOMMIT,0);
+		$this->dbo->beginTransaction();
+		
+		if(!$this->dbo->query("UPDATE expenses SET comment=CONCAT(comment, ' [','{$category->name}',']') WHERE payment_method_assigned_to_user_id={$id}"))
+			return ACTION_FAILED;
+		
+		if(!$query = $this->dbo->query("SELECT id FROM payment_methods_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name='Inny'"))
+			return ACTION_FAILED;
+		$otherCategoryData = $query ->fetch(PDO::FETCH_OBJ);
+		
+		if(!$this->dbo->query("UPDATE expenses SET payment_method_assigned_to_user_id={$otherCategoryData->id} WHERE payment_method_assigned_to_user_id={$id}"))
+			return ACTION_FAILED;
+		
+		if(!$this->dbo->query("UPDATE payment_methods_assigned_to_users SET position=position-1 WHERE user_id={$_SESSION['loggedUser']->id} AND  position > {$category->position}"))
+			return ACTION_FAILED;
+		
+		$query = "DELETE FROM payment_methods_assigned_to_users WHERE id=$id";
+		
+		if (!$this->dbo->exec($query)) return ACTION_FAILED;
+		
+		$this->dbo->commit();
+		
+		return ACTION_OK;
+	}
+	
+	function editCategoryPositions()
 	{
 		$this->dbo->setAttribute(PDO::ATTR_AUTOCOMMIT,0);
 		$this->dbo->beginTransaction();
@@ -321,6 +427,23 @@ class Expenses
 		foreach($_POST['expenseCategories'] as $categoryId => $expenseCategoryPosition)
 		{
 			if(!$this->dbo->query("UPDATE expenses_category_assigned_to_users SET position='{$expenseCategoryPosition}' WHERE id={$categoryId}"))
+				return ACTION_FAILED;
+		}
+		
+		$this->dbo->commit();
+		
+		return ACTION_OK;
+	}
+	
+
+	function editPaymentMethodPositions()
+	{
+		$this->dbo->setAttribute(PDO::ATTR_AUTOCOMMIT,0);
+		$this->dbo->beginTransaction();
+		
+		foreach($_POST['paymentMethods'] as $paymentMethodId => $paymentMethodPosition)
+		{
+			if(!$this->dbo->query("UPDATE payment_methods_assigned_to_users SET position='{$paymentMethodPosition}' WHERE id={$paymentMethodId}"))
 				return ACTION_FAILED;
 		}
 		

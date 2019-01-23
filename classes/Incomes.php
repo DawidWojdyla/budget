@@ -174,20 +174,55 @@ class Incomes
 		include 'templates/incomeAddingForm.php';
 	}
 	
-	function groupSortedIncomesByCategoryId(&$incomes)
+	function groupSortedIncomesByCategoryIdWithBubbleSort(&$my_array )
 	{
-		usort($incomes, function($a, $b)
+		do
 		{
-		return strcmp($a->categoryId, $b->categoryId);
-		});
+			$swapped = false;
+			for( $i = 0, $c = count($my_array) - 1; $i < $c; $i++ )
+			{
+				if( $my_array[$i]->categoryId > $my_array[$i + 1]->categoryId )
+				{
+					$temp = $my_array[$i + 1];
+					$my_array[$i + 1] = $my_array[$i];
+					$my_array[$i] = $temp;
+				
+					$swapped = true;
+				}
+			}
+		}
+		while($swapped);
 	}
+
+	//function groupSortedIncomesByCategoryId($incomes)
+	//{
+		//uasort($incomes, function($a, $b)
+		//{
+			//return strcmp($a->categoryId, $b->categoryId);
+			//return $a->categoryId > $b->categoryId;
+			// if($a->categoryId != $b->categoryId)
+			//{
+				//return strcmp($a->categoryId, $b->categoryId);
+			//}
+			//return $a->incomeDate - $b->incomeDate;
+			//return $a->categoryId - $b->categoryId;
+			
+		//});
+		
+		//$result = array();
+		//foreach ($incomes as $income) {
+			//$result[$income->categoryId][] = $income;
+		//}
+		//return $result;
+		
+	//}
 	
 	function returnIncomesFromChosenPeriod()
 	{
 		$query = $this->dbo->query("SELECT incomes.id as incomeId, incomes_category_assigned_to_users.name as categoryName, incomes_category_assigned_to_users.id as categoryId, incomes.amount, incomes.date as incomeDate, incomes.comment FROM incomes, incomes_category_assigned_to_users WHERE incomes.user_id={$_SESSION['loggedUser']->id}  AND incomes_category_assigned_to_users.id=incomes.income_category_assigned_to_user_id AND incomes.date BETWEEN '{$_SESSION['dateFrom']}' AND '{$_SESSION['dateTo']}' ORDER BY incomes.{$_SESSION['sortColumn']} {$_SESSION['sortType']}");
 		$incomes = $query->fetchAll(PDO::FETCH_OBJ);
 		
-		$this->groupSortedIncomesByCategoryId($incomes);
+		$this->groupSortedIncomesByCategoryIdWithBubbleSort($incomes);
 		
 		return $incomes;
 	}
@@ -202,9 +237,9 @@ class Incomes
 	function addNewIncomeCategory()
 	{
 		if( !$this->dbo) return SERVER_ERROR;
-		if (!isset($_POST['newIncomeCategory']) || $_POST['newIncomeCategory'] == '') return FORM_DATA_MISSING;
+		if (!isset($_POST['newCategoryName']) || $_POST['newCategoryName'] == '') return FORM_DATA_MISSING;
 	  
-		$newCategoryName = filter_input(INPUT_POST, 'newIncomeCategory');
+		$newCategoryName = filter_input(INPUT_POST, 'newCategoryName');
 		$newCategoryName = mb_convert_case($newCategoryName, MB_CASE_TITLE, "UTF-8");
 		
 		if($this->checkIfCategoryNameExists($newCategoryName)) return CATEGORY_NAME_ALREADY_EXISTS;

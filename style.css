@@ -87,7 +87,7 @@ h1
 {
 	margin-top: 3px;
 	margin-left: 10px;
-	width: 110px;
+	width: 90px;
 	background-color: #44bc53;
 	cursor: pointer;
 	color: white;
@@ -321,13 +321,13 @@ h1
 .dateGetting
 {
 	margin-left: 3px;
-	max-width: 143px;
+	width: 143px;
 	height: 30px;
 	font-size: 15px;
 	margin-right: 5px;
 	text-align: right;
 	color: #575757;
-	padding: 3px;
+	padding: 2px;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: 1.5px solid green;
@@ -348,15 +348,16 @@ h1
 
 .commentGetting
 {
-	max-width: 180px;
+	width: 150px;
+	height:58px;
 	margin-left: 3px;
-	padding: 3px;
+	padding: 2px;
 	font-size: 16px;
 	text-align: left;
 	color: #575757;
 	border-radius: 5px;
 	border: 1.5px solid green;
-	margin-top: 5px;
+	
 }
 .commentGetting:focus
 {
@@ -370,6 +371,21 @@ h1
 	outline: none;
 }
 
+.nameGetting
+{
+	max-width: 150px;
+	height: 30px;
+	margrgin-left:auto;
+	margrgin-right:auto;
+	
+}
+
+.centerInput 
+{
+	margin-left:auto;
+	margin-right: auto;
+	text-align:center;
+}
 
 .option
 {
@@ -674,6 +690,107 @@ float: right;
 	font-size: 24px;
 }
 
+.settingTable td:first-child
+{
+	width:38%;
+}
+
+.categoryEditTable
+{
+	width:96%;
+	margin: 0px auto 20px auto;
+	padding:1px;
+	font-size: 16px;
+	text-shadow:
+	-0.5px 0.5px 0px #44ab53,
+	0.5px -0.5px 0px #44ab53,
+	-0.5px -0.5px 0px #44ab53;
+}
+.categoryEditTable tr:first-child td
+{
+	padding:5px 0px 10px 0px;
+}
+.categoryEditTable td
+{
+	min-width: 50px;
+
+}
+.editIcons
+{
+	width: 52px;
+}
+
+.categoryOption
+{
+	display:inline;
+	padding: 3px;
+	margin: 5px;
+	color: #ab5344;
+	text-shadow:
+	-0.5px 0.5px 0px #ab4468,
+	0.5px -0.5px 0px #ab4468,
+	-0.5px -0.5px 0px #4468ab;
+}
+
+.position
+{
+	margin: 0 1px 0 1px;
+	width: 40px;
+	height: 21px;
+}
+
+.position >input
+{
+	margin-right:5px;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  
+}
+.settingsModal
+{
+	
+	color:white;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-shadow:
+	-1px 1px 0px black,
+	1px -1px 0px black,
+	-1px -1px 0px black,
+	1px 1px 0px black;
+	
+}
+
+.settingsModal >input
+{
+	font-weight: normal;
+	text-shadow: none;
+}
+
+.categoryNameGetting
+{
+	height:30px;
+	width: 170px;
+	font-weight: normal;
+}
+
 #successfulRegistration
 {
 	text-align: center;
@@ -737,7 +854,7 @@ float: right;
 
 .editButtons > input
 {
-	margin: 5px;
+	margin: 0 5px 0 5px;
 	padding: 2px;
 	font-size: 12px;
 	width: 62px;
@@ -758,12 +875,11 @@ float: right;
 {
 	margin:0px;
 }
-.position
+.noMargin >input
 {
-	margin-bottom: 1px;
-	width: 45px;
-	height: 25px;
+	margin: 1px 0;
 }
+
 
 .lastDataTableContainer
 {
@@ -818,7 +934,7 @@ float: right;
 
 .editFormTable
 {
-	width: 80%;
+	width: 75%;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 200px;
@@ -827,18 +943,18 @@ float: right;
 
 .editFormTable td
 {
-	font-size: 17px;	
-	padding: 2px;
-	margin: 0px;
+	font-size: 17px;
+	padding: 0px;
 	min-width: 100px;
 	font-weight: bold;
+	vertical-align: middle;
 }
 
 .editFormInputs
 {
-	width: 150px;
-	margin-top: 0px;
-	margin-bottom:0px;
+	width: 160px;
+	margin-top: 7px;
+	margin-bottom:7px;
 }
 
 #logInfo
@@ -846,4 +962,145 @@ float: right;
 	color: #ddd;
 	margin-top: 18px;
 	font-size: 14px;
+}
+
+.topnav 
+{
+	background-color: transparent;
+	/*overflow: hidden;*/
+}
+
+.nav-icon
+{
+	background-color: transparent;
+	margin: 0 2px 0 0;
+	padding: 2px;
+	height: 16px;
+}
+
+.topnav a
+{
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  margin: 1px auto;
+  max-width: 160px;
+  padding: 3px;
+}
+.topnav a:not(.hamburger):hover
+{
+	background-color: #44ab53;
+	border-radius: 7px;
+	-webkit-box-shadow:  inset 0px 0px 21px 3px rgba(18,18,17,1);
+	-moz-box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
+	box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
+}
+.topnav .hamburger
+{
+	color: #4468ab;
+	display: none;
+}
+.topnav .hamburger:hover 
+{
+}
+
+@media screen and (max-width: 740px) 
+{
+	.topnav a 
+	{
+		display: none;
+	}
+	.topnav a.hamburger 
+	{
+		float: right;
+		display: block;
+	}
+}
+
+
+@media screen and (max-width: 740px) 
+{
+	.topnav.responsive
+	{
+		position: relative;
+	}
+	
+	.topnav.responsive a.hamburger 
+	{
+		position: absolute;
+		right:0;
+		top:0;
+	}
+	
+	.topnav.responsive a 
+	{
+		float: none;
+		display: block;
+		text-align: center;
+	}
+}
+
+.mainImage 
+{
+	/*background-image: url("img/budget.jpg");
+	width: 100%;
+	height:100%;*/
+	position: relative;
+}
+
+.mainImage >img
+{
+	width: 100%;
+	border-radius: 15px;
+	opacity: 0.3;
+	filter: alpha(opacity=30); 
+	 -webkit-filter: blur(3.5px); /* Safari 6.0 - 9.0 */
+	filter: blur(3.5px);
+}
+
+.quotation
+{
+	position: absolute;
+	 top:50%;
+	 letf: 50%;
+	 font-size: 17px;
+	 font-weight: bold;
+	 color: white;
+	 text-shadow: 1px 1px 2px black,
+						  -1px 1px 2px black,
+						  1px -1px 2px black,
+						  -1px -1px 2px black;	
+}
+.author
+{
+	color: #4468ab;
+	text-shadow: 1px 1px 1px white,
+						  -1px 1px 1px white,
+						  1px -1px 1px white,
+						  -1px -1px 1px white;	
+	float:right;
+}
+
+.intro
+{
+	font-size: 17px;
+	font-weight: bold;
+	padding: 15px;
+	text-align: justify;
+	text-justify: inter-word;
+	text-shadow: 1px 1px 2px white,
+						  -1px 1px 2px white,
+						  1px -1px 2px white,
+						  -1px -1px 2px white;	
+}
+
+.regLink
+{
+	max-width: 250px;
+	width: 200px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+	border-radius: 10px
 }

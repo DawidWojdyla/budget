@@ -6,7 +6,7 @@ session_start();
 try{
 	$portal = new Portal("localhost", "root", "", "budget");
 	
-	$action = 'showRegistrationForm';
+	$action = 'showMain';
 	if (isset($_GET['action'])){
     $action = $_GET['action'];
   }
@@ -14,7 +14,7 @@ try{
    $message = $portal -> getMessage();
    $delay = $portal -> getDelay();
    
-    if (($action == 'showRegistrationForm' || $action == 'registerUser') && $portal->loggedUser){
+    if (($action == 'showRegistrationForm' || $action == 'registerUser' || $action == 'showMain' ) && $portal->loggedUser){
     header('Location:index.php?action=showMenu');
     return;
   }
@@ -92,6 +92,11 @@ try{
 					$portal->setMessage('Obecnie dodanie przychodu nie jest możliwe.');
 					$portal->hideMessageAfterTime(3000);
 					break;
+				case LOGIN_REQUIRED:
+					$portal->setMessage('Najpierw musisz się zalogować.');
+					$portal->hideMessageAfterTime(3000);
+					header('Location:index.php?action=showRegistrationForm');
+					return;
 				case SERVER_ERROR:
 				default:
 					$portal->setMessage('Błąd serwera!');
@@ -136,9 +141,6 @@ try{
 					$portal->hideMessageAfterTime(3000);
 			endswitch;
 			header('Location:index.php?action=showBalance');
-			break;
-		case 'deleteExpense':
-			//
 			break;
 		case 'updateItem':
 			switch($portal->updateItem()):
@@ -254,6 +256,27 @@ try{
 			endswitch;
 			header('Location:index.php?action=showSettings');
 			break;
+		case 'editPaymentMethodsPositions':
+			switch($portal->editPaymentMethodsPositions()):
+				case ACTION_OK:
+					$portal->setMessage('Pomyślnie zmieniono kolejność kategorii płatności.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case CATEGORY_POSITIONS_ARE_NOT_UNIQUE:
+					$portal->setMessage('Nie można dwóch lub więcej sposobów płatności przypisać do tej samej pozycji.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case ACTION_FAILED:
+					$portal->setMessage('Obecnie nie można zmienić kolejności kategorii płatności.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case SERVER_ERROR:
+				default:
+					$portal->setMessage('Błąd serwera!');
+					$portal->hideMessageAfterTime(3000);
+			endswitch;
+			header('Location:index.php?action=showSettings');
+			break;
 		case 'removeCategory':
 			switch($portal->removeCategory()):
 				case ACTION_OK:
@@ -353,6 +376,31 @@ try{
 					break;
 				case CATEGORY_NAME_ALREADY_EXISTS:
 				  $portal->setMessage('Kategoria o takiej nazwie już istnieje!');
+				  $portal->hideMessageAfterTime(6000);
+				  break;
+				case SERVER_ERROR:
+				default:
+					$portal->setMessage('Błąd serwera!');
+					$portal->hideMessageAfterTime(3000);
+			endswitch;
+			header('Location:index.php?action=showSettings');
+			break;
+		case 'addNewPaymentMethod':
+			switch($portal->addNewPaymentMethod()):
+				case ACTION_OK:
+					$portal->setMessage('Pomyślnie dodano nowy sposób płatności.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case ACTION_FAILED:
+					$portal->setMessage('Obecnie dodanie nowego sposobu płatności nie jest możliwe.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case FORM_DATA_MISSING:
+					$portal->setMessage('Nie dodano nowego sposobu płatności z powodu braku danych.');
+					$portal->hideMessageAfterTime(3000);
+					break;
+				case CATEGORY_NAME_ALREADY_EXISTS:
+				  $portal->setMessage('Kategoria sposobu płatności o takiej nazwie już istnieje!');
 				  $portal->hideMessageAfterTime(6000);
 				  break;
 				case SERVER_ERROR:

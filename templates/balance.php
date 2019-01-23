@@ -81,7 +81,7 @@
 					<td style="text-align: right;">
 						<div style="display:inline;" class="noMargin noPadding text-right">
 							<span data-toggle="tooltip" title="Edytuj" onclick="showEditForm('e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>');"  class='glyphicon glyphicon-pencil balance-icon'></span>
-							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
+							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
 						</div>
 					</td>
 				</tr>
@@ -119,8 +119,14 @@
 			<div class="tableHead noMargin">
 				Edycja danych:
 			</div>
-			<div style="color:white;" id="editFormModalBody"></div>
+			<div style="color:white; margin-top: 15px;" id="editFormModalBody"></div>
 		</div>
 	</div>
-	
+	<div class="modal fade" id="modal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="settingsModal">
+				<div id="modalBody"></div>
+			</div>
+		</div>
+	</div>
 </div>	

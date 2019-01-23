@@ -42,13 +42,13 @@
 							if ($portal->getActualUser()){
 								include 'logInfo.php';
 								include 'logoutDiv.php';
+								 if($action != 'showMenu') include 'templates/topNav.php'; 
 							}
 							else include 'loginDiv.php';
 						?>
-					</div>
-				</div>
-			</header>
+			</header>			
 			<div id="mainContentDiv">
+			
 				<?php if($message): ?>
 				<div id="mess" class="message">
 					<?=$message?><?php endif; ?>
@@ -62,17 +62,72 @@
 					case 'showRegistrationForm' :
 						$portal->showRegistrationForm();
 						break;
+					case 'showMain' :
+						include 'templates/main.php';
+						break;
 					case 'showIncomeAddingForm' :
-						$portal->showIncomeAddingForm();
+						switch($portal->showIncomeAddingForm()):
+							case LOGIN_REQUIRED:
+								$portal->setMessage('Najpierw musisz się zalogować.');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showRegistrationForm');
+								return;
+						case SERVER_ERROR:
+								$portal->setMessage('Błąd serwera!');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showMenu');
+								return;
+						default:
+							break;
+						endswitch;
 						break;
 					case 'showExpenseAddingForm' :
-					  $portal->showExpenseAddingForm();
+					  switch($portal->showExpenseAddingForm()):
+							case LOGIN_REQUIRED:
+								$portal->setMessage('Najpierw musisz się zalogować.');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showRegistrationForm');
+								return;
+						case SERVER_ERROR:
+								$portal->setMessage('Błąd serwera!');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showMenu');
+								return;
+						default:
+							break;
+						endswitch;
 					  break;
 					case 'showBalance' :
-					  $portal->showBalance();
+					  switch($portal->showBalance()):
+							case LOGIN_REQUIRED:
+								$portal->setMessage('Najpierw musisz się zalogować.');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showRegistrationForm');
+								return;
+						case SERVER_ERROR:
+								$portal->setMessage('Błąd serwera!');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showMenu');
+								return;
+						default:
+							break;
+						endswitch;
 					  break;
 				   case 'showSettings' :
-					  $portal->showSettings();
+					  switch($portal->showSettings()):
+							case LOGIN_REQUIRED:
+								$portal->setMessage('Najpierw musisz się zalogować.');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showRegistrationForm');
+								return;
+						case SERVER_ERROR:
+								$portal->setMessage('Błąd serwera!');
+								$portal->hideMessageAfterTime(3000);
+								header('Location:index.php?action=showMenu');
+								return;
+						default:
+							break;
+						endswitch;
 					  break;
 					case 'showMenu':
 					default:
@@ -81,11 +136,10 @@
 								include 'templates/menuDiv.php';
 								break;
 							default:
-								header('Location:index.php?action=showRegistrationForm');
+								header('Location:index.php?action=showMain');
 						}	
 				 endswitch;
 				?>
-				
 			</div>
 	</body>
 </html>

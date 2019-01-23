@@ -3,3 +3,4 @@
 		<input class="form-group myLoginInputs" type="submit" value="Wyloguj">
 	</a>
 </div>
+</div>
