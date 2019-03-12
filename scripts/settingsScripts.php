@@ -1,5 +1,8 @@
 <script type="text/javascript">
 
+var fadeInTime = 500;
+var fadeOutTime = 200;
+
 var isDataEditShown = false;
 var isNameEditFormShown = false;
 var isPasswordEditFormShown = false;
@@ -22,14 +25,14 @@ function showDataEdition()
 {
 	if(!isDataEditShown)
 	{
-		document.getElementById("dataEdit").style.display = "inline";
-		document.getElementById("dataDownArrow").style.display="none";
-		 isDataEditShown = true;
+		$('#dataEdit').slideDown(fadeInTime);
+		$('#dataDownArrow').slideUp(fadeInTime);
+		isDataEditShown = true;
 	}
 	else
 	{
-		document.getElementById("dataEdit").style.display = "none";
-		document.getElementById("dataDownArrow").style.display="inline";
+		$('#dataDownArrow').slideDown(fadeOutTime);
+		$('#dataEdit').slideUp(fadeOutTime);
 		isDataEditShown = false;
 		
 		if(isNameEditFormShown) showNameEditForm();
@@ -41,15 +44,18 @@ function showNameEditForm()
 {
 	if(!isNameEditFormShown)
 	{
-		document.getElementById("name").style.display = "none";
-		document.getElementById("nameEditForm").style.display = "inline";
-		 isNameEditFormShown = true;
+		$('#name').fadeOut(fadeOutTime, function(){
+			$('#nameEditForm').fadeIn(fadeOutTime); 
+			isNameEditFormShown = true;
+		});
+		 
 	}
 	else
 	{
-		document.getElementById("nameEditForm").style.display = "none";
-		document.getElementById("name").style.display = "inline";
-		isNameEditFormShown = false;
+		$('#nameEditForm').fadeOut(fadeOutTime, function(){
+			$('#name').fadeIn(fadeOutTime); 
+			isNameEditFormShown = false;
+		});
 	}	
 }
 
@@ -57,12 +63,12 @@ function showPasswordEditForm()
 {
 	if(!isPasswordEditFormShown)
 	{
-		document.getElementById("passwordEditForm").style.display = "inline";
+		$('#passwordEditForm').fadeIn(fadeInTime);
 		 isPasswordEditFormShown = true;
 	}
 	else
 	{
-		document.getElementById("passwordEditForm").style.display = "none";
+		$('#passwordEditForm').fadeOut(fadeOutTime);
 		isPasswordEditFormShown = false;
 	}	
 }
@@ -70,24 +76,20 @@ function showPasswordEditForm()
 
 function showCategoryTypes()
 {
-	var categoryTypes = document.getElementsByClassName('categoryTypes');
+	//var categoryTypes = document.getElementsByClassName('categoryTypes');
 	
 	if(!areCategoryTypesShown)
 	{
-		for (var i = 0; i < categoryTypes.length; ++i) 
-		{
-			categoryTypes[i].style.display= 'table-row';
-		}
-		document.getElementById("categoriesDownArrow").style.display="none";
+		
+		$('#categorriesDiv').slideDown(fadeInTime);
+		$('#categoriesDownArrow').slideUp(fadeInTime);	
 		areCategoryTypesShown = true;
+		
 	}
 	else
 	{
-		for (var i = 0; i < categoryTypes.length; ++i) 
-		{
-			categoryTypes[i].style.display= 'none';
-		}
-		document.getElementById("categoriesDownArrow").style.display="block";
+		$('#categoriesDownArrow').slideDown(fadeOutTime);
+		$('#categorriesDiv').slideUp(fadeOutTime);	
 		areCategoryTypesShown = false;
 		
 		if(areIncomeCategoriesShown) showIncomeCategories();
@@ -101,14 +103,13 @@ function showIncomeCategories()
 {
 	if(!areIncomeCategoriesShown)
 	{
-		document.getElementById("incomeCategories").style.display = "table";
+		$('#incomeCategories').fadeIn(fadeInTime);
 		areIncomeCategoriesShown = true;
 	}
 	else
 	{
-		document.getElementById("incomeCategories").style.display = "none";
+		$('#incomeCategories').fadeOut(fadeOutTime);
 		areIncomeCategoriesShown = false;
-	
 		if(isIncomeCategoryPositionsEditFormShown) showIncomeCategoryPositionsEditForm();
 	}
 }
@@ -117,12 +118,12 @@ function showExpenseCategories()
 {
 	if(!areExpenseCategoriesShown)
 	{
-		document.getElementById("expenseCategories").style.display = "table";
+		$('#expenseCategories').fadeIn(fadeInTime);
 		areExpenseCategoriesShown = true;
 	}
 	else
 	{
-		document.getElementById("expenseCategories").style.display = "none";
+		$('#expenseCategories').fadeOut(fadeOutTime);
 		areExpenseCategoriesShown = false;
 		
 		if(isExpenseCategoryPositionsEditFormShown) showExpenseCategoryPositionsEditForm();
@@ -134,12 +135,12 @@ function showPaymentMethods()
 {
 	if(!arePaymentMethodsShown)
 	{
-		document.getElementById("paymentMethods").style.display = "table";
+		$('#paymentMethods').fadeIn(fadeInTime);		
 		arePaymentMethodsShown = true;
 	}
 	else
 	{
-		document.getElementById("paymentMethods").style.display = "none";
+		$('#paymentMethods').fadeOut(fadeOutTime);
 		arePaymentMethodsShown = false;
 		
 		if(isPaymentMethodPositionsEditFormShown) showPaymentMethodPositionsEditForm();
@@ -148,94 +149,55 @@ function showPaymentMethods()
 
 function showIncomeCategoryPositionsEditForm()
 {
-	var positions = document.getElementsByClassName('incomeCategoryPosition');
-	var editIcons = document.getElementsByClassName('incomeEditIcons');
-	
 	if(!isIncomeCategoryPositionsEditFormShown)
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'table-cell';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'none';
-		}
-		isIncomeCategoryPositionsEditFormShown = true;
+		$('.incomeEditIcons').fadeOut(fadeOutTime, function(){
+			$('.incomeCategoryPosition').fadeIn(fadeInTime); 
+			isIncomeCategoryPositionsEditFormShown = true;
+		});
 	}
 	else
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'none';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'table-cell';
-		}
-		isIncomeCategoryPositionsEditFormShown = false;
+		$('.incomeCategoryPosition').fadeOut(fadeOutTime, function(){
+			$('.incomeEditIcons').fadeIn(fadeInTime); 
+			isIncomeCategoryPositionsEditFormShown = false;
+		});
 	}
 }
 
 function showExpenseCategoryPositionsEditForm()
 {
-	var positions = document.getElementsByClassName('expenseCategoryPosition');
-	var editIcons = document.getElementsByClassName('expenseEditIcons');
-	
 	if(!isExpenseCategoryPositionsEditFormShown)
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'table-cell';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'none';
-		}
-		isExpenseCategoryPositionsEditFormShown = true;
+		$('.expenseEditIcons').fadeOut(fadeOutTime, function(){
+			$('.expenseCategoryPosition').fadeIn(fadeInTime); 
+			isExpenseCategoryPositionsEditFormShown = true;
+		});
 	}
 	else
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'none';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'table-cell';
-		}
-		isExpenseCategoryPositionsEditFormShown = false;
+		$('.expenseCategoryPosition').fadeOut(fadeOutTime, function(){
+			$('.expenseEditIcons').fadeIn(fadeInTime); 
+			isExpenseCategoryPositionsEditFormShown = false;
+		});
 	}
 }
 
 function showPaymentMethodPositionsEditForm()
 {
-	var positions = document.getElementsByClassName('paymentMethodPosition');
-	var editIcons = document.getElementsByClassName('paymentMethodEditIcons');
-	
 	if(!isPaymentMethodPositionsEditFormShown)
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'table-cell';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'none';
-		}
-		isPaymentMethodPositionsEditFormShown = true;
+		$('.paymentMethodEditIcons').fadeOut(fadeOutTime, function(){
+			$('.paymentMethodPosition').fadeIn(fadeInTime); 
+			isPaymentMethodPositionsEditFormShown = true;
+		});
 	}
 	else
 	{
-		for (var i = 0; i < positions.length; ++i) 
-		{
-			positions[i].style.display= 'none';
-		}
-		for (var i = 0; i < editIcons.length; ++i) 
-		{
-			editIcons[i].style.display= 'table-cell';
-		}
-		isPaymentMethodPositionsEditFormShown = false;
+		$('.paymentMethodPosition').fadeOut(fadeOutTime, function(){
+			$('.paymentMethodEditIcons').fadeIn(fadeInTime); 
+			isPaymentMethodPositionsEditFormShown = false;
+		});
 	}
 }
 
@@ -253,78 +215,6 @@ function removeItem(id)
 	document.getElementById("modalBody").innerHTML = modalBody;
 	$('#modal').modal('show');
 }
-
-
-
-
-/*function showNewIncomeCategoryAddingForm()
-{
-	if(!isNewIncomeCategoryAddingFormShown)
-	{
-		document.getElementById("newIncomeCategoryAddingForm").style.display="inline";
-		isNewIncomeCategoryAddingFormShown = true;
-	}
-	else
-	{
-		document.getElementById("newIncomeCategoryAddingForm").style.display="none";
-		isNewIncomeCategoryAddingFormShown = false;
-	}	
-}
-
-function showNewExpenseCategoryAddingForm()
-{
-	if(!isNewExpenseCategoryAddingFormShown)
-	{
-		document.getElementById("newExpenseCategoryAddingForm").style.display="inline";
-		isNewExpenseCategoryAddingFormShown = true;
-	}
-	else
-	{
-		document.getElementById("newExpenseCategoryAddingForm").style.display="none";
-		isNewExpenseCategoryAddingFormShown = false;
-	}	
-}
-
-function showCategoryEditOptions(id)
-{
-	 if(lastChosenCategoryId != id && lastChosenCategoryId != null)
-		{
-			document.getElementById(lastChosenCategoryId).innerHTML = '';
-			highlightItem(lastChosenCategoryId);
-		}
-		 if (document.getElementById(id).innerHTML == '')
-		 {
-			document.getElementById(id).innerHTML = '<div class="buttons editButtons"><input type="submit" class="add" value="Edytuj" onclick="showCategoryEditNameForm(\''+id+'\');"><input class="cancel" value="Usuń" type="button" onclick="showRemoveConfirmation(\''+id+'\');" /></div>';
-			highlightItem(id);
-			lastChosenCategoryId = id;
-		}
-		else{
-			document.getElementById(id).innerHTML = '';
-			highlightItem(id);
-			lastChosenCategoryId = null;
-		}
-}
-
-function showRemoveConfirmation(id)
-	{
-		document.getElementById(id).innerHTML = '<form action="index.php?action=removeCategory" method="post"><div style="font-size: 16px; color: black; line-height: 15px;">Czy na pewno chcesz usunąć wybraną kategorię?</div><div class="buttons editButtons"><input type="hidden" name="itemToBeRemoved" value="'+id+'"><input type="submit" class="add" value="Tak"><input class="cancel" value="Anuluj" type="button" onclick="showCategoryEditOptions(\''+id+'\');" /></div></form>';
-	}
-
-function highlightItem(id)
-	{
-		if(document.getElementById(id+'s').style.color != "red"){
-			document.getElementById(id+'s').style.color = "red";
-		}
-		else{
-			document.getElementById(id+'s').style.color = "#333";
-		}
-	}
-	
-
-function showCategoryEditNameForm(id)
-{
-	document.getElementById(id).innerHTML = '<form action="index.php?action=editCategoryName" method="post"><input class="commentGetting" type="text" name="newCategoryName" placeholder="Podaj nową nazwę" ><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons noMargin"><input type="submit" value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="showCategoryEditOptions(\''+id+'\');"></div></form>';
-} */
 
 function showNewCategoryAddingForm(actionName)
 {
@@ -346,6 +236,23 @@ function showCategoryEditNameForm(id)
 
 function showLastAddedItemsShowLinks()
 {
+	if(document.getElementById("lastAddedItems").style.display =="none")
+	{
+		$('#lastAddedItems').slideDown(fadeInTime);
+		$('#incomeDownArrow').slideUp(fadeInTime);
+	}
+	else
+	{
+		$('#lastAddedItems').slideUp(fadeOutTime);
+		$('#incomeDownArrow').slideDown(fadeOutTime);
+		if(areLastAddedIncomesShown) showLastAddedIncomes();
+		if(areLastAddedExpensesShown) showLastAddedExpenses();
+	}
+	
+	
+	
+	/*
+	
 	if(document.getElementById("lastAddedIncomesShowLink").style.display =="none")
 	{
 		document.getElementById("lastAddedIncomesShowLink").style.display = "table-row";
@@ -361,18 +268,22 @@ function showLastAddedItemsShowLinks()
 		if(areLastAddedExpensesShown) showLastAddedExpenses();
 			
 	}
+	
+	*/
 }
 
 function showLastAddedIncomes()
 {
 	if(!areLastAddedIncomesShown)
 	{
-		document.getElementById("lastAddedIncomesEdit").style.display="table";
+		$('#lastAddedIncomesEdit').fadeIn(fadeInTime);
+		//document.getElementById("lastAddedIncomesEdit").style.display="table";
 		areLastAddedIncomesShown = true;
 	}
 	else
 	{
-		document.getElementById("lastAddedIncomesEdit").style.display="none";
+		$('#lastAddedIncomesEdit').fadeOut(fadeOutTime);
+		//document.getElementById("lastAddedIncomesEdit").style.display="none";
 		areLastAddedIncomesShown = false;
 	}
 }
@@ -381,12 +292,12 @@ function showLastAddedExpenses()
 {
 	if(!areLastAddedExpensesShown)
 	{
-		document.getElementById("lastAddedExpensesEdit").style.display="table";
+		$('#lastAddedExpensesEdit').fadeIn(fadeInTime);
 		areLastAddedExpensesShown = true;
 	}
 	else
 	{
-		document.getElementById("lastAddedExpensesEdit").style.display="none";
+		$('#lastAddedExpensesEdit').fadeOut(fadeOutTime);
 		areLastAddedExpensesShown = false;
 	}
 }

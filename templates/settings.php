@@ -60,9 +60,9 @@
 	<div class="editClick tableHead" onclick="showCategoryTypes();">
 		Edycja kategorii
 	</div>
-	<div id='categoriesDownArrow' class='editButtons arrow pointer' style="margin-top: -20px;" onclick="showCategoryTypes();">&dArr;</div>
+<div id="categorriesDiv" style="display: none;">
 	<table class="lastDataEdit option">
-		<tr class="categoryTypes" style="display: none;">
+		<tr class="categoryTypes">
 			<td>
 				<div class="attributes editClick"  style="margin-bottom: 10px;" onclick="showIncomeCategories();">
 					Przychody
@@ -105,7 +105,7 @@
 		</tr>
 	</table>
 	<table class="lastDataEdit option">
-		<tr class="categoryTypes" style="display: none;">
+		<tr class="categoryTypes">
 			<td>
 				<div class="attributes editClick"  style="margin-bottom: 10px;" onclick="showExpenseCategories();">Wydatki</div>
 			</td>
@@ -154,7 +154,7 @@
 		</tr>
 	</table>
 	<table class="lastDataEdit option">
-		<tr class="categoryTypes" style="display: none;">
+		<tr class="categoryTypes">
 			<td>
 				<div class="attributes editClick"  style="margin-bottom: 10px;" onclick="showPaymentMethods();">
 					Płatności
@@ -202,93 +202,100 @@
 			</td>
 		</tr>
 	</table>
+</div>
+	<div id='categoriesDownArrow' class='editButtons arrow pointer' style="margin-top: -20px;" onclick="showCategoryTypes();">&dArr;</div>
 	<div class="editClick tableHead" onclick="showLastAddedItemsShowLinks();">
 		Ostatnio dodawane
 	</div>
+<div id="lastAddedItems" style="display:none;">
 	<table class="lastDataEdit option">
-		<tr id="lastAddedIncomesShowLink" style="display: none;">
+		<tr id="lastAddedIncomesShowLink">
 			<td><div class="attributes editClick" onclick="showLastAddedIncomes();">Przychody</div></td>
 		</tr>
 	</table>
-		<form action="index.php?action=removeLastAddedIncomes" class="noMargin" method="post">
-			<div class="lastDataTableContainer">
-				<table  class="lastDataEdit option" id="lastAddedIncomesEdit" style="display: none;">
-				<?PHP foreach ($lastIncomes as $lastIncome): ?>
-					<tr>
-						<td>
-							<label for='li<?=$lastIncome->id?>'>
-								<input class='lastDataCheckbox pointer' id='li<?=$lastIncome->id?>' type='checkbox' value='<?=$lastIncome->id?>' name='lastIncomes[]'>
-							</label>
-						</td>
-						<td>
-							<label  class='pointer' for='li<?=$lastIncome->id?>'><?=$lastIncome->date?>
-							</label>
-						</td>
-						<td>
-							<label  class='pointer' for='li<?=$lastIncome->id?>'><?=$lastIncome->name?>
-							</label>
-						</td>
-						<td align='right'>
-							<label class='pointer' for='li<?=$lastIncome->id?>'><?=number_format($lastIncome->amount, 2,'.',' ')?>
-							</label>
-						</td>
-					</tr>
-				<?PHP endforeach ?>
-				
-				<?PHP if ($lastIncomes): ?>
-				<tr><td colspan="4">
-					<div class="buttons editButtons" style="text-align: center;">
-						<input type="submit" class="add" value="Usuń" style="margin-right:7%;">
-						<input class="cancel" class="noMargin" value="Anuluj" type="button" onclick="showLastAddedIncomes();" style="margin-left:7%;" />
-					</div>
-				</td></tr>					
-				<?PHP else: ?> 
-				<tr><td colspan="4"><div class="text-center option" style="padding: 20px; margin-bottom: -15px; margin-top: -20px;">Nie masz dodanych żadnych przychodów!</div></td></tr>
-				<?PHP endif; ?>
-				</table>
-			</div>
-		</form>	
-	<div id='incomeDownArrow' class="noMargin">
-		<div class='editButtons arrow pointer' style="text-align: center; margin-top: -30px; margin-bottom: -20px;" onclick="showLastAddedItemsShowLinks();">&dArr;</div>
-	</div>
+	<form action="index.php?action=removeLastAddedIncomes" class="noMargin" method="post">
+		<div class="lastDataTableContainer">
+			<table  class="lastDataEdit option" id="lastAddedIncomesEdit" style="display: none;">
+			<?PHP foreach ($lastIncomes as $lastIncome): ?>
+				<tr>
+					<td>
+						<label for='li<?=$lastIncome->id?>'>
+							<input class='lastDataCheckbox pointer' id='li<?=$lastIncome->id?>' type='checkbox' value='<?=$lastIncome->id?>' name='lastIncomes[]'>
+						</label>
+					</td>
+					<td>
+						<label  class='pointer' for='li<?=$lastIncome->id?>'><?=$lastIncome->date?>
+						</label>
+					</td>
+					<td>
+						<label  class='pointer' for='li<?=$lastIncome->id?>'><?=$lastIncome->name?>
+						</label>
+					</td>
+					<td align='right'>
+						<label class='pointer' for='li<?=$lastIncome->id?>'><?=number_format($lastIncome->amount, 2,'.',' ')?>
+						</label>
+					</td>
+				</tr>
+			<?PHP endforeach ?>
+			
+			<?PHP if ($lastIncomes): ?>
+			<tr><td colspan="4">
+				<div class="buttons editButtons" style="text-align: center;">
+					<input type="submit" class="add" value="Usuń" style="margin-right:7%;">
+					<input class="cancel" class="noMargin" value="Anuluj" type="button" onclick="showLastAddedIncomes();" style="margin-left:7%;" />
+				</div>
+			</td></tr>					
+			<?PHP else: ?> 
+			<tr><td colspan="4"><div class="text-center option" style="padding: 20px; margin-bottom: -15px; margin-top: -20px;">Nie masz dodanych żadnych przychodów!</div></td></tr>
+			<?PHP endif; ?>
+			</table>
+		</div>
+	</form>	
 	<table class="lastDataEdit option">
-		<tr id="lastAddedExpensesShowLink" style="display: none;">
+		<tr id="lastAddedExpensesShowLink">
 			<td><div class="attributes editClick"  style="margin-top: -5px;"onclick="showLastAddedExpenses();">Wydatki</div></td>
 		</tr>
 	</table>
-		<form action="index.php?action=removeLastAddedExpenses" class="noMargin" method="post">
-			<div class="lastDataTableContainer">
-				<table id="lastAddedExpensesEdit" style="display: none;" class="option lastDataEdit noMargin noPadding">
-					<?PHP foreach ($lastExpenses as $lastExpense): ?>
-					<tr>
-						<td>
-							<label for='le<?=$lastExpense->id?>'>
-								<input class='lastDataCheckbox pointer' type='checkbox' id='le<?=$lastExpense->id?>' value='<?=$lastExpense->id?>' name='lastExpenses[]'>
-							</label>
-						</td>
-						<td>
-							<label class='pointer' for='le<?=$lastExpense->id?>'><?=$lastExpense->date?></label>
-						</td>
-						<td>
-							<label class='pointer' for='le<?=$lastExpense->id?>'><?=$lastExpense->name?></label>
-						</td>
-						<td align='right'>
-							<label class='pointer' for='le<?$lastExpense->id?>'><?=number_format($lastExpense->amount, 2,'.',' ')?></label>
-						</td>
-					</tr>
-					<?PHP endforeach; ?>
-					<?PHP if ($lastExpenses): ?>
-					<tr><td colspan="4"><div class="buttons editButtons" style="text-align: center; margin-bottom: 15px;">
-						<input type="submit" class="add" value="Usuń" style="margin-right:7%;">
-						<input class="cancel" value="Anuluj" type="button" onclick="showLastAddedExpenses();" style="margin-left:7%;" /></div></td>
-					</tr>				
-				<?PHP else: ?> 
-				<tr><td colspan="4"><div class="text-center option" style="padding: 20px; margin-bottom: -15px; margin-top: -20px;">Nie masz dodanych żadnych wydatków!</div></td></tr>
-				<?PHP endif; ?>
-				</table>
-			</div>
-		</form>	
-
+	<form action="index.php?action=removeLastAddedExpenses" class="noMargin" method="post">
+		<div class="lastDataTableContainer">
+			<table id="lastAddedExpensesEdit" style="display: none;" class="option lastDataEdit noMargin noPadding">
+				<?PHP foreach ($lastExpenses as $lastExpense): ?>
+				<tr>
+					<td>
+						<label for='le<?=$lastExpense->id?>'>
+							<input class='lastDataCheckbox pointer' type='checkbox' id='le<?=$lastExpense->id?>' value='<?=$lastExpense->id?>' name='lastExpenses[]'>
+						</label>
+					</td>
+					<td>
+						<label class='pointer' for='le<?=$lastExpense->id?>'><?=$lastExpense->date?></label>
+					</td>
+					<td>
+						<label class='pointer' for='le<?=$lastExpense->id?>'><?=$lastExpense->name?></label>
+					</td>
+					<td align='right'>
+						<label class='pointer' for='le<?$lastExpense->id?>'><?=number_format($lastExpense->amount, 2,'.',' ')?></label>
+					</td>
+				</tr>
+				<?PHP endforeach; ?>
+				<?PHP if ($lastExpenses): ?>
+				<tr>
+					<td colspan="4">
+						<div class="buttons editButtons" style="text-align: center; margin-bottom: 0px;">
+							<input type="submit" class="add" value="Usuń" style="margin-right:7%;">
+							<input class="cancel" value="Anuluj" type="button" onclick="showLastAddedExpenses();" style="margin-left:7%;" />
+						</div>
+					</td>
+				</tr>				
+			<?PHP else: ?> 
+			<tr><td colspan="4"><div class="text-center option" style="padding: 20px; margin-bottom: -15px; margin-top: -15px;">Nie masz dodanych żadnych wydatków!</div></td></tr>
+			<?PHP endif; ?>
+			</table>
+		</div>
+	</form>	
+</div>
+<div id='incomeDownArrow' class="noMargin">
+	<div class='editButtons arrow pointer' style="text-align: center; margin-top: -20px; margin-bottom: -10px;" onclick="showLastAddedItemsShowLinks();">&dArr;</div>
+</div>
 <div class="modal fade" id="modal" role="dialog">
 	<div class="modal-dialog modal-sm">
 	<div class="settingsModal">
