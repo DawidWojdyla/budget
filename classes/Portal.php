@@ -392,9 +392,9 @@ class Portal extends MyDB
   
   function editCategoryName()
   {
-	  
 	  if(!$this->dbo) return SERVER_ERROR;
 	  if(!isset($_POST['newCategoryName']) || !isset($_POST['categoryId']) || $_POST['newCategoryName'] == '') return FORM_DATA_MISSING;
+	  if($_POST['newCategoryName'] == $_POST['oldCategoryName']) return CATEGORY_NAME_WAS_NOT_CHANGED;
 	  if($_POST['categoryId'] < 1) return ACTION_FAILED;
 	  
 	  $categoryId = (int) $_POST['categoryId'];

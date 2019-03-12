@@ -208,7 +208,6 @@ function closeModal(modalId)
 
 function removeItem(id)
 {
-	//highlightItem(id);
 	var modalBody = 'Czy napewno chcesz usunąć wybraną kategorię?';
 	modalBody += '<form action="index.php?action=removeCategory" method="post"><div class="buttons editButtons"><input type="hidden" name="itemToBeRemoved" value="'+id+'"><input type="submit" class="add" value="Tak"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');" /></div></form>';
 	
@@ -228,7 +227,7 @@ function showCategoryEditNameForm(id)
 {
 	var categoryName = document.getElementById(id).innerHTML;
 	
-	var modalBody = '<form action="index.php?action=editCategoryName" method="post"><input class="commentGetting categoryNameGetting" type="text" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons"><input type="submit" class="add"  value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
+	var modalBody = '<form action="index.php?action=editCategoryName" method="post"><input class="commentGetting categoryNameGetting" type="text" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="oldCategoryName" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons"><input type="submit" class="add"  value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
 	
 	document.getElementById("modalBody").innerHTML = modalBody;
 	$('#modal').modal('show');
@@ -248,28 +247,6 @@ function showLastAddedItemsShowLinks()
 		if(areLastAddedIncomesShown) showLastAddedIncomes();
 		if(areLastAddedExpensesShown) showLastAddedExpenses();
 	}
-	
-	
-	
-	/*
-	
-	if(document.getElementById("lastAddedIncomesShowLink").style.display =="none")
-	{
-		document.getElementById("lastAddedIncomesShowLink").style.display = "table-row";
-		document.getElementById("lastAddedExpensesShowLink").style.display = "table-row";
-		document.getElementById("incomeDownArrow").style.display="none";
-	}
-	else
-	{
-		document.getElementById("lastAddedIncomesShowLink").style.display="none";
-		document.getElementById("lastAddedExpensesShowLink").style.display="none";
-		document.getElementById("incomeDownArrow").style.display="inline";
-		if(areLastAddedIncomesShown) showLastAddedIncomes();
-		if(areLastAddedExpensesShown) showLastAddedExpenses();
-			
-	}
-	
-	*/
 }
 
 function showLastAddedIncomes()
@@ -277,13 +254,11 @@ function showLastAddedIncomes()
 	if(!areLastAddedIncomesShown)
 	{
 		$('#lastAddedIncomesEdit').fadeIn(fadeInTime);
-		//document.getElementById("lastAddedIncomesEdit").style.display="table";
 		areLastAddedIncomesShown = true;
 	}
 	else
 	{
 		$('#lastAddedIncomesEdit').fadeOut(fadeOutTime);
-		//document.getElementById("lastAddedIncomesEdit").style.display="none";
 		areLastAddedIncomesShown = false;
 	}
 }

@@ -203,6 +203,10 @@ try{
 				  $portal->setMessage('Nie zapisano z powodu braku danych.');
 				  $portal->hideMessageAfterTime(3000);
 				  break;
+				case CATEGORY_NAME_WAS_NOT_CHANGED:
+				  $portal->setMessage('Nazwa kategorii pozostaje bez zmian.');
+				  $portal->hideMessageAfterTime(3000);
+				  break;
 				case CATEGORY_NAME_ALREADY_EXISTS:
 				  $portal->setMessage('Kategoria o takiej nazwie już istnieje!');
 				  $portal->hideMessageAfterTime(6000);
