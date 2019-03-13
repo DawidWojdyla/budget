@@ -305,6 +305,7 @@ class Portal extends MyDB
 		
 
 		include 'scripts/settingsScripts.php';
+		include 'scripts/fadeInScripts.php';
 		include 'templates/settings.php';
 	}
 	

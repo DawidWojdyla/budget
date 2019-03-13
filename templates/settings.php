@@ -1,4 +1,4 @@
-﻿<div id="tableContainer">
+﻿<div id="tableContainer" style="display:none;">
 	<div class="editClick tableHead" onclick="showDataEdition();">
 		Dane konta
 	</div>

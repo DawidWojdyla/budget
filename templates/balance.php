@@ -1,4 +1,4 @@
-<div id="tableContainer">
+<div id="tableContainer" style="display:none;">
 	<section>
 		<div class="tableHead">
 			Przychody

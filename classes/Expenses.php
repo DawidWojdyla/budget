@@ -228,6 +228,7 @@ class Expenses
 		$categories = $this -> returnCategoriesArray();
 		$paymentMethods = $this -> returnPaymentMethodsArray();
 			
+		include 'scripts/fadeInScripts.php';
 		include 'templates/expenseAddingForm.php';
 	}
 	

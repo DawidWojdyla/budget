@@ -1,4 +1,4 @@
-<div id="tableContainer">
+<div id="tableContainer" style="display:none;">
 	<form action="index.php?action=addNewIncome" name="incomeAddingForm" id="incomeAddingForm" method="post">
 		<div class="tableHead">
 			Dodaj przychód

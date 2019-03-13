@@ -171,6 +171,7 @@ class Incomes
 	{
 		$categories = $this->returnCategoriesArray();
 			
+		include 'scripts/fadeInScripts.php';
 		include 'templates/incomeAddingForm.php';
 	}
 	

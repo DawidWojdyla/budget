@@ -1,4 +1,4 @@
-<div id="tableContainer">
+<div id="tableContainer" style="display:none;">
 	<form action="index.php?action=addNewExpense" name="expenseAddingForm" id="expenseAddingForm" method="post">
 		<div class="tableHead">
 			Dodaj wydatek

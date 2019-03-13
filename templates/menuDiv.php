@@ -1,5 +1,14 @@
+<script type="text/javascript">
+
+$(document).ready(function () {
+   // $('.menu').slideDown(500);
+    $('.menu').fadeIn(500);
+});
+
+</script>
+
 <nav>
-	<div class="menu">
+	<div class="menu" style="display:none;">
 		<ul>
 			<li><a href="index.php?action=showIncomeAddingForm">
 						<span class='glyphicon glyphicon-plus menu-icon'></span>
