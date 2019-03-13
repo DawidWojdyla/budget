@@ -14,6 +14,9 @@ function openModal(modalId)
 
 function showClass(className)
 {
+	$('.'+className).toggle(200);
+	
+	/*
 	var positions = document.getElementsByClassName(className);
 
 	for (var i = 0; i < positions.length; ++i)
@@ -21,21 +24,8 @@ function showClass(className)
 			positions[i].style.display = 'table-row';
 		else
 			positions[i].style.display = 'none';
+		*/
 }	
-
-/*function removeItem3(id)
-{
-	let form = document.createElement('form');
-	form.action = 'index.php?action=removeItem';
-	form.method = 'POST';
-
-	form.innerHTML = '<input type="hidden" name="itemToBeRemoved" value="'+id+'">';
-	
-	document.body.append(form);
-
-	form.submit();
-}*/
-
 
 function removeItem(id)
 {
