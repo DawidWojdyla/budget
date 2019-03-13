@@ -83,8 +83,7 @@ try{
 				case ACTION_OK:
 					$portal->setMessage('Dodano nowy przychód.');
 					$portal->hideMessageAfterTime(3000);
-					header('Location:index.php?action=showMenu');
-					return;
+					break;
 				case FORM_DATA_MISSING:
 					$portal->setMessage('Proszę wypełnić poprawnie wymagane pola formularza!');
 					break;
@@ -109,8 +108,7 @@ try{
 				case ACTION_OK:
 					$portal->setMessage('Dodano nowy wydatek.');
 					$portal->hideMessageAfterTime(3000);
-					header('Location:index.php?action=showMenu');
-					return;
+					break;
 				case FORM_DATA_MISSING:
 					$portal->setMessage('Proszę wypełnić poprawnie wymagane pola formularza!');
 					break;
