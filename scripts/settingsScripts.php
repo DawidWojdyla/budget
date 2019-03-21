@@ -223,7 +223,7 @@ function showNewCategoryAddingForm(actionName)
 	$('#modal').modal('show');
 }
 
-function showCategoryEditNameForm(id)
+/*function showCategoryEditNameForm(id)
 {
 	var categoryName = document.getElementById(id).innerHTML;
 	
@@ -231,7 +231,69 @@ function showCategoryEditNameForm(id)
 	
 	document.getElementById("modalBody").innerHTML = modalBody;
 	$('#modal').modal('show');
+}*/
+
+function showCategoryEditNameForm(id)
+{
+	var categoryName = document.getElementById(id).innerHTML;
+	
+	var modalBody = '<form id="categoryEditForm" method="post"><input class="commentGetting categoryNameGetting" type="text" id="newCategoryName" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="oldCategoryName" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons"><input type="button" class="add"  value="Zapisz" onclick="sendCategoryEditForm('+id+');"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
+	
+	document.getElementById("modalBody").innerHTML = modalBody;
+	$('#modal').modal('show');
 }
+
+function sendCategoryEditForm(id)
+{
+	var newCategoryName = $("#newCategoryName").val();
+	var values = $('#categoryEditForm').serialize();
+	
+/*	$.ajax({
+		url: "index.php?action=editCategoryName",
+		type: "post",
+		data: values ,
+		success: function (response) {
+			if(response == 'OK')
+			{
+				$(id).text(newCategoryName);
+				 alert("Pomyślnie zmieniono nazwę kategorii");
+			}
+			else alert(response);
+			
+			closeModal('modal');
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+			 alert("Nie udało się zapisać zmian");
+			}
+
+
+    }); */
+	
+     var ajaxRequest = $.ajax({
+            url: "index.php?action=editCategoryName",
+            type: "post",
+            data: values
+        });
+
+     ajaxRequest.done(function (response){
+        if(response == 'OK')
+			{
+				$(id).text(newCategoryName);
+				 alert("Pomyślnie zmieniono nazwę kategorii");
+			}
+			else alert(response);
+     });
+
+     ajaxRequest.fail(function (){
+
+      alert("Nie udało się zapisać zmian");
+     });
+	 
+	 ajaxRequest.always(function(){
+		 closeModal('modal');
+	 });
+}
+
 
 function showLastAddedItemsShowLinks()
 {

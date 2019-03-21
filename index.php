@@ -190,31 +190,24 @@ try{
 		case 'editCategoryName':
 			switch($portal->editCategoryName()):
 				case ACTION_OK:
-					$portal->setMessage('Nazwa kategorii została pomyślnie zmieniona.');
-					$portal->hideMessageAfterTime(3000);
+					print_r('OK');
 					break;
 				case ACTION_FAILED:
-					$portal->setMessage('Obecnie zmiana nazwy kategorii nie jest możliwa.');
-					$portal->hideMessageAfterTime(3000);
+				print_r('Obecnie zmiana nazwy kategorii nie jest możliwa.');
 					break;
 				case FORM_DATA_MISSING:
-				  $portal->setMessage('Nie zapisano z powodu braku danych.');
-				  $portal->hideMessageAfterTime(3000);
+				  print_r('Nie zapisano z powodu braku danych.');
 				  break;
 				case CATEGORY_NAME_WAS_NOT_CHANGED:
-				  $portal->setMessage('Nazwa kategorii pozostaje bez zmian.');
-				  $portal->hideMessageAfterTime(3000);
+				  print_r('Nazwa kategorii pozostaje bez zmian.');
 				  break;
 				case CATEGORY_NAME_ALREADY_EXISTS:
-				  $portal->setMessage('Kategoria o takiej nazwie już istnieje!');
-				  $portal->hideMessageAfterTime(6000);
+				  print_r('Kategoria o takiej nazwie już istnieje!');
 				  break;
 				case SERVER_ERROR:
 				default:
-					$portal->setMessage('Błąd serwera!');
-					$portal->hideMessageAfterTime(3000);
+					print_r('Błąd serwera!');
 			endswitch;
-			header('Location:index.php?action=showSettings');
 			break;
 		case 'editIncomeCategoriesPositions':
 			switch($portal->editIncomeCategoriesPositions()):

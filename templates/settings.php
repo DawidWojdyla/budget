@@ -298,8 +298,8 @@
 </div>
 <div class="modal fade" id="modal" role="dialog">
 	<div class="modal-dialog modal-sm">
-	<div class="settingsModal">
-		<div id="modalBody"></div>
+		<div class="settingsModal">
+			<div id="modalBody"></div>
 		</div>
 	</div>
 </div>
