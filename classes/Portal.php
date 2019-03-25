@@ -391,11 +391,11 @@ class Portal extends MyDB
 		else return ACTION_FAILED;	
   }
   
-  function editCategoryName()
+  function editCategory()
   {
 	  if(!$this->dbo) return SERVER_ERROR;
 	  if(!isset($_POST['newCategoryName']) || !isset($_POST['categoryId']) || $_POST['newCategoryName'] == '') return FORM_DATA_MISSING;
-	  if($_POST['newCategoryName'] == $_POST['oldCategoryName']) return CATEGORY_NAME_WAS_NOT_CHANGED;
+	  if($_POST['newCategoryName'] == $_POST['oldCategoryName'] && $_POST['typeOfCategory'] != 'e') return CATEGORY_NAME_WAS_NOT_CHANGED;
 	  if($_POST['categoryId'] < 1) return ACTION_FAILED;
 	  
 	  $categoryId = (int) $_POST['categoryId'];
@@ -406,10 +406,108 @@ class Portal extends MyDB
 		  $incomes = new Incomes($this->dbo);
 		  return $incomes->setNewCategoryName($categoryId , $newCategoryName);
 	  }
+	  
 	  else if($_POST['typeOfCategory'] == 'e')
 	  {
 		  $expenses = new Expenses($this->dbo);
-		  return $expenses->setNewCategoryName($categoryId , $newCategoryName);
+		  $settingCategoryNameReturn = "NO_CHANGES";
+		  $settingCategoryLimitReturn = "NO_CHANGES";
+		  
+			if($_POST['newCategoryName'] != $_POST['oldCategoryName'])
+			{
+				$settingCategoryNameReturn = $expenses->setNewCategoryName($categoryId , $newCategoryName);
+			}
+		
+			if (isset($_POST['newCategoryLimit']) && $_POST['newCategoryLimit'] != '')
+			{
+				if(!isset($_POST['oldCategoryLimit']) || $_POST['oldCategoryLimit'] != $_POST['newCategoryLimit'])
+				{
+					$amountChecker = new Amount();
+					$amount = filter_input(INPUT_POST, 'newCategoryLimit');
+					if($amountChecker -> checkAmount($amount))
+					{
+						$settingCategoryLimitReturn = $expenses -> setNewCategoryLimit($categoryId, $amount);
+					}
+					else
+					{
+						$settingCategoryLimitReturn = "LIMIT_AMOUNT_IS_NOT_VALID";
+					}
+				}
+			}
+			else
+			{
+				if(isset($_POST['oldCategoryLimit']))
+				{
+					$settingCategoryLimitReturn = $expenses -> setNewCategoryLimit($categoryId, NULL);
+					if($settingCategoryLimitReturn == ACTION_OK)
+						$settingCategoryLimitReturn = "LIMIT_HAS_BEEN_REMOVED";
+				}
+			}
+			
+			switch($settingCategoryNameReturn)
+			{
+				case ACTION_OK:
+					switch ($settingCategoryLimitReturn)
+					{
+						case ACTION_OK:
+							return CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_WAS_SET;
+						case ACTION_FAILED:
+							return CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED;
+						case 'LIMIT_AMOUNT_IS_NOT_VALID':
+							return CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID;
+						case 'LIMIT_HAS_BEEN_REMOVED':
+							return CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_HAS_BEEN_REMOVED;
+						case 'NO_CHANGES':
+						default:
+							return CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED;
+					}
+				case ACTION_FAILED:
+					switch ($settingCategoryLimitReturn)
+					{
+						case ACTION_OK:
+							return CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_WAS_SET;
+						case ACTION_FAILED:
+							return CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED;
+						case 'LIMIT_AMOUNT_IS_NOT_VALID':
+							return CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID;
+						case 'LIMIT_HAS_BEEN_REMOVED':
+							return CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_HAS_BEEN_REMOVED;
+						case 'NO_CHANGES':
+						default:
+							return CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED;
+					}
+				case CATEGORY_NAME_ALREADY_EXISTS:
+					switch ($settingCategoryLimitReturn)
+					{
+						case ACTION_OK:
+							return CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_WAS_SET;
+						case ACTION_FAILED:
+							return CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_COULD_NOT_BE_CHANGED;
+						case 'LIMIT_AMOUNT_IS_NOT_VALID':
+							return CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_AMOUNT_IS_NOT_VALID;
+						case 'LIMIT_HAS_BEEN_REMOVED':
+							return CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_HAS_BEEN_REMOVED;
+						case NO_CHANGES:
+						default:
+							return CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_HAS_REMAINED_UNCHANGED;
+					}
+				case 'NO_CHANGES':
+				default:
+					switch ($settingCategoryLimitReturn)
+					{
+						case ACTION_OK:
+							return CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_WAS_SET;
+						case ACTION_FAILED:
+							return CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED;
+						case 'LIMIT_AMOUNT_IS_NOT_VALID':
+							return CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID;
+						case 'LIMIT_HAS_BEEN_REMOVED':
+							return CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_HAS_BEEN_REMOVED;
+						case 'NO_CHANGES':
+						default:
+							return CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED;
+					}
+			}
 	  }
 	  else if($_POST['typeOfCategory'] == 'p')
 	  {

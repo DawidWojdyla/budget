@@ -96,25 +96,9 @@ class Expenses
 		
 		$amount = filter_input(INPUT_POST, 'amount');
 		
-		$amount = str_replace(",",".",$amount);
-		$amountInArray = str_split($amount);
-		$find = array('0','1','2','3','4','5','6','7','8','9','.');
-		$isNumber = true;
-		foreach ($amountInArray as $digit) 
-		{
-			if (!in_array($digit, $find)) 
-			{
-				$isNumber = false;
-				break;
-			}
-		}
-		
-		if (substr_count($amount, ".") >1 || !$isNumber)
-		{
-			$isAllOk = false;
-			$_SESSION ['amountError'] = "Wprowadź poprawną kwotę!";
-		}
-		
+		$amountChecker = new Amount();
+		if(!$isAllOk = $amountChecker -> checkAmount($amount))
+		$_SESSION ['amountError'] = "Wprowadź poprawną kwotę!";	
 		
 		if ($_POST['date'] =="")
 		{
@@ -167,7 +151,7 @@ class Expenses
 	{
 		$categories = array();
 		
-		if($result = $this->dbo->query("SELECT id, name, position FROM expenses_category_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name <> 'Inne' ORDER BY position"))
+		if($result = $this->dbo->query("SELECT `id`, `name`, `position`, `limit` FROM expenses_category_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} AND name <> 'Inne' ORDER BY position"))
 			$categories = $result->fetchAll(PDO::FETCH_OBJ);
 		
 		return $categories;
@@ -344,6 +328,16 @@ class Expenses
 		
 		if (!$query -> execute()) return ACTION_FAILED;
 		return ACTION_OK;	  
+	}
+	
+	function setNewCategoryLimit($categoryId, $categoryLimit)
+	{
+		$query = $this->dbo->prepare("UPDATE `expenses_category_assigned_to_users` SET `limit`=:categoryLimit WHERE id=:categoryId");
+		$query->bindValue(':categoryLimit', $categoryLimit, PDO::PARAM_INT);	
+		$query->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);	
+		
+		if (!$query -> execute()) return ACTION_FAILED;
+		return ACTION_OK;	  	
 	}
 	
 	function setNewPaymentMethodName($categoryId , $categoryName)

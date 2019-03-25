@@ -223,30 +223,63 @@ function showNewCategoryAddingForm(actionName)
 	$('#modal').modal('show');
 }
 
-/*function showCategoryEditNameForm(id)
+function showCategoryEditForm(id)
 {
 	var categoryName = document.getElementById(id).innerHTML;
 	
-	var modalBody = '<form action="index.php?action=editCategoryName" method="post"><input class="commentGetting categoryNameGetting" type="text" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="oldCategoryName" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons"><input type="submit" class="add"  value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
+	var modalBody = '<form id="categoryEditForm" method="post"><input class="commentGetting categoryNameGetting" type="text" id="newCategoryName" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="oldCategoryName" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'">';
 	
-	document.getElementById("modalBody").innerHTML = modalBody;
-	$('#modal').modal('show');
-}*/
-
-function showCategoryEditNameForm(id)
-{
-	var categoryName = document.getElementById(id).innerHTML;
-	
-	var modalBody = '<form id="categoryEditForm" method="post"><input class="commentGetting categoryNameGetting" type="text" id="newCategoryName" name="newCategoryName" autocomplete="off" placeholder="Podaj nową nazwę" value="'+categoryName+'"><input type="hidden" name="oldCategoryName" value="'+categoryName+'"><input type="hidden" name="typeOfCategory" value="'+id.substr(0,1)+'"><input type="hidden" name="categoryId" value="'+id.substr(1)+'"><div class="buttons editButtons"><input type="button" class="add"  value="Zapisz" onclick="sendCategoryEditForm('+id+');"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
+	if(id.substr(0,1) == 'e')
+	{
+		modalBody += '<div class="checkbox" onclick="enableCategoryLimit();"><label><input type="checkbox" name="limitCheckbox" id="limitCheckbox" ';
+		var limitInputStatus = "disabled"
+		var limitValue = '';
+		var oldLimitValueInput = '';
+		if(document.getElementById(id+'limit').innerHTML !== '')
+		{
+			modalBody += 'checked';
+			limitValue = document.getElementById(id+'limit').innerHTML;
+			limitValue = limitValue.substr(6);
+			limitValue = Number(limitValue);
+			limitInputStatus = "";
+			oldLimitValueInput = '<input type="hidden" name="oldCategoryLimit" value="'+limitValue+'">';
+		}
+		modalBody += '>Włącz limit dla kategorii</label>';
+		modalBody += oldLimitValueInput;
+		modalBody += '<input class="commentGetting categoryNameGetting" type="number" id="newCategoryLimit" name="newCategoryLimit" value="'+limitValue+'" '+limitInputStatus+'></div>';
+	}
+	modalBody += '<div class="buttons editButtons"><input type="button" class="add"  value="Zapisz" onclick="sendCategoryEditForm(\''+id+'\');"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
 	
 	document.getElementById("modalBody").innerHTML = modalBody;
 	$('#modal').modal('show');
 }
 
+function enableCategoryLimit()
+{
+	/*$("#limitCheckbox").click(function(){   
+		if ($(this).is(':checked')){
+			$("#newCategoryLimit").removeAttr("disabled");
+		}
+		else{
+			$("#newCategoryLimit").attr("disabled", true);
+		}
+	});*/
+	
+	if ($('#limitCheckbox').is(':checked'))
+	{
+		$("#newCategoryLimit").removeAttr("disabled");
+	}
+	else
+	{
+		$("#newCategoryLimit").attr("disabled", true);
+	}
+	
+}
+
 function sendCategoryEditForm(id)
 {
-	var newCategoryName = $("#newCategoryName").val();
 	var values = $('#categoryEditForm').serialize();
+	var message = "";
 	
 /*	$.ajax({
 		url: "index.php?action=editCategoryName",
@@ -270,28 +303,74 @@ function sendCategoryEditForm(id)
     }); */
 	
      var ajaxRequest = $.ajax({
-            url: "index.php?action=editCategoryName",
+            url: "index.php?action=editCategory",
             type: "post",
             data: values
         });
 
      ajaxRequest.done(function (response){
-        if(response == 'OK')
-			{
-				$(id).text(newCategoryName);
-				 alert("Pomyślnie zmieniono nazwę kategorii");
-			}
-			else alert(response);
+		 
+		 message = response;
+		switch(message)
+		{
+			case 'Zmieniono nazwę kategorii.':
+			case 'Zmieniono nazwę kategorii, zmiana limitu nie była możliwa.':
+			case 'Zmieniono nazwę kategorii, limit miał niepoprawną wartość.':
+					
+				$('#'+id).text($("#newCategoryName").val());
+				break;
+				
+			case 'Zmieniono nazwę kategorii oraz ustawiono limit':
+			
+				$('#'+id).text($("#newCategoryName").val());
+				$('#'+id+'limit').text('Limit: '+parseFloat($("#newCategoryLimit").val()).toFixed(2));
+				break;
+			
+			case 'Nie można było zmienić nazwy kategorii, limit został ustawiony.':                  
+			case 'Kategoria o takiej nazwie już istnieje, limit został ustawiony, nazwa pozostaje bez zmian.':
+			case 'Ustawiono limit dla kategorii.':
+				
+				$('#'+id+'limit').text('Limit: '+parseFloat($("#newCategoryLimit").val()).toFixed(2));
+				break;
+				
+			case 'Zmieniono nazwę kategorii oraz usunięto limit.':           
+			
+				$('#'+id).text($("#newCategoryName").val());
+				$('#'+id+'limit').text('');
+				break;
+				
+			case 'Nie można było zmienić nazwy kategorii, limit został usunięty.':            
+			case 'Kategoria o takiej nazwie już istnieje, usunięto limit, nazwa pozostaje bez zmian.':
+			case 'Usunięto limit dla kategorii.':
+					
+				document.getElementById(id+'limit').innerHTML = "";
+				break;
+		}
+		
+        /*if(response == 'OK')
+		{
+			$(id).text($("#newCategoryName").val());
+			 message = "Zmieniono nazwę kategorii";
+		}
+		else message = response;*/
      });
 
      ajaxRequest.fail(function (){
 
-      alert("Nie udało się zapisać zmian");
+      message = "Nie udało się zapisać zmian";
      });
 	 
-	 ajaxRequest.always(function(){
-		 closeModal('modal');
-	 });
+	ajaxRequest.always(function(){
+	showMessage(message);
+	setTimeout(function(){
+		closeModal('modal');}, 1500);
+	});
+}
+
+function showMessage(message)
+{
+	document.getElementById("modalBody").innerHTML = message;
+//	$('#modal').modal('show');
 }
 
 

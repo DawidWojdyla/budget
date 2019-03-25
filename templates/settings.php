@@ -81,7 +81,7 @@
 		<tr>
 			<td class="editIcons incomeEditIcons">
 				<div style="display:inline" class="text-right">
-					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditNameForm('i<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
+					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditForm('i<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
 					<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$category->id?>');"class='glyphicon glyphicon-remove balance-icon'>
 					</span>
 				</div>
@@ -129,7 +129,7 @@
 		<tr>
 			<td class="editIcons expenseEditIcons">
 				<div style="display:inline" class="text-right">
-					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditNameForm('e<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
+					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditForm('e<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
 					<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$category->id?>');"class='glyphicon glyphicon-remove balance-icon'></span>
 				</div>
 			</td>
@@ -140,6 +140,7 @@
 			</td>
 			<td colspan="3">
 				<div id="e<?=$category->id?>"><?=$category->name?></div>
+				<div style="color: #ab4468; font-size: 13px; text-shadow: none; font-weight: bold;" id="e<?=$category->id?>limit"><?PHP if($category->limit !== null): ?>Limit: <?=$category->limit?><?PHP endif; ?></div>
 			</td>
 		</tr>
 		<?PHP endforeach; ?>
@@ -180,7 +181,7 @@
 		<tr>
 			<td class="editIcons paymentMethodEditIcons">
 				<div style="display:inline" class="text-right">
-					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditNameForm('p<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
+					<span data-toggle="tooltip" title="Edytuj" onclick="showCategoryEditForm('p<?=$category->id?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
 					<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('p<?=$category->id?>');"class='glyphicon glyphicon-remove balance-icon'></span>
 				</div>
 			</td>
@@ -303,5 +304,3 @@
 		</div>
 	</div>
 </div>
-
-

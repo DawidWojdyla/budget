@@ -187,13 +187,13 @@ try{
 			endswitch;
 			header('Location:index.php?action=showSettings');
 			break;
-		case 'editCategoryName':
-			switch($portal->editCategoryName()):
+		case 'editCategory':
+			switch($portal->editCategory()):
 				case ACTION_OK:
-					print_r('OK');
+					print_r('Zmieniono nazwę kategorii.');
 					break;
 				case ACTION_FAILED:
-				print_r('Obecnie zmiana nazwy kategorii nie jest możliwa.');
+				print_r('Obecnie edycja kategorii nie jest możliwa.');
 					break;
 				case FORM_DATA_MISSING:
 				  print_r('Nie zapisano z powodu braku danych.');
@@ -201,8 +201,67 @@ try{
 				case CATEGORY_NAME_WAS_NOT_CHANGED:
 				  print_r('Nazwa kategorii pozostaje bez zmian.');
 				  break;
-				case CATEGORY_NAME_ALREADY_EXISTS:
-				  print_r('Kategoria o takiej nazwie już istnieje!');
+				case CATEGORY_NAME_ALREADY_EXISTS:																				
+				  print_r('Kategoria o takiej nazwie już istnieje.');
+				case CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_WAS_SET:
+				  print_r('Zmieniono nazwę kategorii oraz ustawiono limit');
+				  break;
+				case CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED:
+				  print_r('Zmieniono nazwę kategorii, zmiana limitu nie była możliwa.');
+				  break;
+				case CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_HAS_BEEN_REMOVED:
+				  print_r('Zmieniono nazwę kategorii oraz usunięto limit.');
+				  break;
+				case CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED:            
+				  print_r('Zmieniono nazwę kategorii.');
+				  break;
+				case CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_WAS_SET:
+				  print_r('Nie można było zmienić nazwy kategorii, limit został ustawiony.');
+				  break;
+				case CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED:
+				  print_r('Nie można było zmienić nazwy kategorii ani ustawić limitu.');
+				  break;
+				case CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_HAS_BEEN_REMOVED:
+				  print_r('Nie można było zmienić nazwy kategorii, limit został usunięty.');
+				  break;
+				case CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED:        
+				  print_r('Nie można było zmienić nazwy kategorii.');
+				  break;
+				case CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_WAS_SET:
+				  print_r('Kategoria o takiej nazwie już istnieje, limit został ustawiony, nazwa pozostaje bez zmian.');
+				  break;
+				case CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_COULD_NOT_BE_CHANGED:
+				  print_r('Kategoria o takiej nazwie już istnieje, nie można było zmienić limitu.');
+				  break;
+				case CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_HAS_BEEN_REMOVED:
+				  print_r('Kategoria o takiej nazwie już istnieje, usunięto limit, nazwa pozostaje bez zmian.');
+				  break;
+				case CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_HAS_REMAINED_UNCHANGED:           
+				  print_r('Kategoria o takiej nazwie już istnieje.');
+				  break;
+				case CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_WAS_SET:
+				  print_r('Ustawiono limit dla kategorii.');
+				  break;
+				case CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_COULD_NOT_BE_CHANGED:
+				  print_r('Nie można było ustawić limitu.');
+				  break;
+				case CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_HAS_BEEN_REMOVED:
+				  print_r('Usunięto limit dla kategorii.');
+				  break;
+				case CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_HAS_REMAINED_UNCHANGED:
+				  print_r('Nazwa kategorii oraz limit pozostają bez zmian.');
+				  break;
+				case CATEGORY_NAME_WAS_CHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID:
+				  print_r('Zmieniono nazwę kategorii, limit miał niepoprawną wartość.');
+				  break;
+				case CATEGORY_NAME_COULD_NOT_BE_CHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID:
+				  print_r('Nie można było zmienić nazwy kategorii, limit miał niepoprawną wartość.');
+				  break;
+				case CATEGORY_NAME_ALREADY_EXISTS_AND_LIMIT_AMOUNT_IS_NOT_VALID:
+				  print_r('Kategoria o takiej nazwie już istnieje, limit miał niepoprawną wartość.');
+				  break;
+				case CATEGORY_NAME_HAS_REMAINED_UNCHANGED_AND_LIMIT_AMOUNT_IS_NOT_VALID:
+				  print_r('Limit miał niepoprawną wartość.');
 				  break;
 				case SERVER_ERROR:
 				default:
