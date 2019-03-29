@@ -765,7 +765,8 @@ float: right;
 }
 .settingsModal
 {
-	
+	/*background-image: url("img/brushed.png");
+	padding: 20px 5px 5px 5px;*/
 	color:white;
 	font-size: 16px;
 	font-weight: bold;
@@ -1103,4 +1104,9 @@ float: right;
 	margin-bottom: 20px;
 	padding: 10px;
 	border-radius: 10px
+}
+
+.limitInfo
+{
+	text-align: center;
 }

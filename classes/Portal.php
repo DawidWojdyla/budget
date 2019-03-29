@@ -596,5 +596,11 @@ class Portal extends MyDB
 	  return $expenses->editPaymentMethodPositions();
   }
   
+  function returnExpenseCategorySumOfChosenPeriod()
+  {
+	  $expenses = new Expenses($this->dbo);
+	  return $expenses -> returnExpenseCategorySumOfChosenPeriod();
+  }
+  
 }
 ?>

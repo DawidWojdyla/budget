@@ -231,7 +231,7 @@ function showCategoryEditForm(id)
 	
 	if(id.substr(0,1) == 'e')
 	{
-		modalBody += '<div class="checkbox" onclick="enableCategoryLimit();"><label><input type="checkbox" name="limitCheckbox" id="limitCheckbox" ';
+		modalBody += '<div class="checkbox" style="margin-bottom:-1px;" onclick="enableCategoryLimit();"><label><input type="checkbox" name="limitCheckbox" id="limitCheckbox" ';
 		var limitInputStatus = "disabled"
 		var limitValue = '';
 		var oldLimitValueInput = '';
@@ -244,9 +244,9 @@ function showCategoryEditForm(id)
 			limitInputStatus = "";
 			oldLimitValueInput = '<input type="hidden" name="oldCategoryLimit" value="'+limitValue+'">';
 		}
-		modalBody += '>Włącz limit dla kategorii</label>';
+		modalBody += '>Włącz limit dla kategorii</label></div>';
 		modalBody += oldLimitValueInput;
-		modalBody += '<input class="commentGetting categoryNameGetting" type="number" id="newCategoryLimit" name="newCategoryLimit" value="'+limitValue+'" '+limitInputStatus+'></div>';
+		modalBody += '<input class="commentGetting categoryNameGetting" type="number" id="newCategoryLimit" name="newCategoryLimit" value="'+limitValue+'" '+limitInputStatus+'>';
 	}
 	modalBody += '<div class="buttons editButtons"><input type="button" class="add"  value="Zapisz" onclick="sendCategoryEditForm(\''+id+'\');"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');"></div></form>';
 	

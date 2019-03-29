@@ -161,7 +161,7 @@ class Expenses
 	{
 		$categories = array();
 		
-		if($result = $this->dbo->query("SELECT id, name, position FROM expenses_category_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} ORDER BY position"))
+		if($result = $this->dbo->query("SELECT `id`, `name`, `position`, `limit` FROM expenses_category_assigned_to_users WHERE user_id={$_SESSION['loggedUser']->id} ORDER BY position"))
 			$categories = $result->fetchAll(PDO::FETCH_OBJ);
 		
 		return $categories;
@@ -213,6 +213,7 @@ class Expenses
 		$paymentMethods = $this -> returnPaymentMethodsArray();
 			
 		include 'scripts/fadeInScripts.php';
+		include 'scripts/expenseAddingFormScripts.php';
 		include 'templates/expenseAddingForm.php';
 	}
 	
@@ -445,6 +446,21 @@ class Expenses
 		$this->dbo->commit();
 		
 		return ACTION_OK;
+	}
+	
+	function returnExpenseCategorySumOfChosenPeriod()
+	{
+		if(isset($_POST['categoryId']) || isset($_POST['month']) || isset($_POST['year']))
+		{
+			$categoryId = (int)$_POST['categoryId'];
+		
+			if($query = $this->dbo->query("SELECT COALESCE(SUM(expenses.amount),0) as categorySum FROM expenses WHERE expense_category_assigned_to_user_id ={$categoryId} AND YEAR(expenses.date)={$_POST['year']} AND MONTH(expenses.date)={$_POST['month']}"))
+			{
+				$result = $query->fetch(PDO::FETCH_OBJ);
+				
+				return $result->categorySum;
+			}
+		}
 	}
 	
 }

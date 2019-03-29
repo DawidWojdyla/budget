@@ -493,6 +493,9 @@ try{
 			endswitch;
 			header('Location:index.php?action=showSettings');
 			break;
+		case 'returnExpenseCategorySumOfChosenPeriod':
+			printf($portal->returnExpenseCategorySumOfChosenPeriod());
+				break;			
 		default:
 			include 'templates/mainTemplate.php';
 	}

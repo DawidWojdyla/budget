@@ -3,6 +3,7 @@
 		<div class="tableHead">
 			Dodaj wydatek
 		</div>
+		<div id="limitInfo"></div>
 		<table class="expenseTable">
 			<tr>
 				<td>
@@ -11,7 +12,7 @@
 					</div>
 				</td>
 				<td>
-					<input class="amountGetting" name="amount" type="text" value="<?PHP 
+					<input id="amount" class="amountGetting" name="amount" min="0" type="number" value="<?PHP 
 					if (isset($_SESSION['amountSes'])):
 						echo $_SESSION['amountSes'];
 						unset ($_SESSION['amountSes']);
@@ -30,7 +31,7 @@
 					</div>
 				</td>
 				<td>
-					<input class="dateGetting" name="date" type="date" value="<?PHP
+					<input id="expenseDate" class="dateGetting" name="date" type="date" value="<?PHP
 						if (isset($_SESSION['dateSes'])):
 							echo $_SESSION['dateSes'];
 							unset ($_SESSION['dateSes']);
@@ -69,12 +70,15 @@
 				</td>
 				<td>
 					<?PHP	foreach ($categories as $category): ?> 
-					<div class="option"><label><input type="radio" name="category" value="<?=$category->id?>"
+					<div class="option"><label><input onclick="showLimitInfoIfRequired('<?=$category->limit?>');" type="radio" name="category" value="<?=$category->id?>"
 						<?PHP if (isset($_SESSION['categorySes']) && $_SESSION['categorySes'] == $category->id):?> 
 						checked="checked"
 						<?PHP unset ($_SESSION['categorySes']);
 						endif;?>><?=$category->name?></label>
 					</div>
+					<?PHP if($category->limit !== null): ?>
+					<div style="margin-left:20px; color: #ab4468; margin-top:-8px; font-size: 13px; text-shadow: none; font-weight: bold;">Limit: <?=$category->limit?></div>
+					<?PHP endif; ?>
 					<?PHP endforeach; if (isset($_SESSION['categoryError'])):?>
 					<div class="option error"><?=$_SESSION['categoryError']?></div>
 					<?PHP unset($_SESSION['categoryError']); endif;?>
