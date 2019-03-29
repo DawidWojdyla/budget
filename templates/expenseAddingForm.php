@@ -3,7 +3,7 @@
 		<div class="tableHead">
 			Dodaj wydatek
 		</div>
-		<div id="limitInfo"></div>
+		<div id="limitInfo" style="display: none;"></div>
 		<table class="expenseTable">
 			<tr>
 				<td>
@@ -12,7 +12,7 @@
 					</div>
 				</td>
 				<td>
-					<input id="amount" class="amountGetting" name="amount" min="0" type="number" value="<?PHP 
+					<input id="amount" class="amountGetting" name="amount" step=".01" min="0" type="number" value="<?PHP 
 					if (isset($_SESSION['amountSes'])):
 						echo $_SESSION['amountSes'];
 						unset ($_SESSION['amountSes']);

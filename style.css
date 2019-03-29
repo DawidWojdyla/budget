@@ -1108,5 +1108,15 @@ float: right;
 
 .limitInfo
 {
+	max-width: 100%;
+	margin-top: -18px;
+	margin-bottom: 5px;
 	text-align: center;
+	font-size: 13px;
+	padding: 5px;
+}
+
+.red
+{
+	background-color: #cd4353;
 }

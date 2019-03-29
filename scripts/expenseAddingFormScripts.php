@@ -94,12 +94,19 @@ function showLimitInfo()
 	if(limit != null)
 	{
 		var amount = $('input[name=amount]').val();
-		if(amount ==="") 	amount = 0;
+		if(amount ==="") 	amount = 0.00;
 		else 						amount = parseFloat(amount);
 		var leftToSpend = limit - lastChosenCategorySum;
-		if(leftToSpend < 0) leftToSpend = 0;
+		if(leftToSpend < 0) 
+			leftToSpend = 0;
+		leftToSpend = leftToSpend.toFixed(2);
 		
-		var limitInfo= '<div class="row"><div class="col-sm-3"><div>limit:</div><div>'+limit+'</div></div><div class="col-sm-3"><div>wydano:</div><div>'+lastChosenCategorySum+'</div></div><div class="col-sm-3"><div>pozostało:</div><div>'+leftToSpend+'</div></div><div class="col-sm-3"><div>kwota+wydano:</div><div>'+(lastChosenCategorySum+amount)+'</div></div></div>';
+		var sum = lastChosenCategorySum+amount;
+		
+		var limitInfo= '<div class="attributes limitInfo ';
+		if(leftToSpend < amount) limitInfo += 'red';
+			
+		limitInfo+='"><div class="row"><div class="col-xs-4"><div>wydano:</div><div>'+lastChosenCategorySum.toFixed(2)+'</div></div><div class="col-xs-4"><div>pozostało:</div><div>'+leftToSpend+'</div></div><div class="col-xs-4"><div>kwota+wydano:</div><div>'+sum+'</div></div></div></div>';
 		$('#limitInfo').html(limitInfo);
 		$('#limitInfo').fadeIn();
 	}
