@@ -169,7 +169,7 @@ class Portal extends MyDB
 					break;
 			}		
 		}
-		else
+		else if(!isset($_POST['whatSorting']))
 		{
 			$_SESSION['dateFrom'] = date('Y-m-01');
 			$_SESSION['dateTo'] = date('Y-m-d');
@@ -181,7 +181,7 @@ class Portal extends MyDB
 	{
 		if(isset($_POST['whatSorting']))
 		{
-			//$_SESSION['whatSorting'] = $_POST['whatSorting'];
+			$_SESSION['whatSorting'] = $_POST['whatSorting'];
 			
 			switch($_POST['whatSorting'])
 			{
@@ -203,7 +203,7 @@ class Portal extends MyDB
 					break;
 			}		
 		}
-		else
+		else if(!isset($_POST['period']))
 		{
 			$_SESSION['sortColumn'] = 'date';
 			$_SESSION['sortType'] = 'DESC';
