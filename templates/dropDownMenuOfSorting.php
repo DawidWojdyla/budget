@@ -1,6 +1,6 @@
 <div class="dropdownMenuContainer" style="display:none;">
 	<div class="dropdownMenu" style="float: left; width: 120px;">
-		<button class="dropButton">Sortowanie</button>
+		<button class="dropButton"><span class='glyphicon glyphicon-sort nav-icon'></span>Sortowanie</button>
 		<form action="index.php?action=showBalance" method="post">
 			<div id="periods">
 				<input type="submit" name="whatSorting" class="period" value="malejąca data">

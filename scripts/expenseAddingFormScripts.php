@@ -106,7 +106,7 @@ function showLimitInfo()
 		var limitInfo= '<div class="attributes limitInfo ';
 		if(leftToSpend < amount) limitInfo += 'red';
 			
-		limitInfo+='"><div class="row"><div class="col-xs-4"><div>wydano:</div><div>'+lastChosenCategorySum.toFixed(2)+'</div></div><div class="col-xs-4"><div>pozostało:</div><div>'+leftToSpend+'</div></div><div class="col-xs-4"><div>kwota+wydano:</div><div>'+sum+'</div></div></div></div>';
+		limitInfo+='"><div class="row" style="margin-left:-5px; margin-right: 5px;"><div class="col-xs-4"><div>wydano:</div><div>'+lastChosenCategorySum.toFixed(2)+'</div></div><div class="col-xs-4"><div>pozostało:</div><div>'+leftToSpend+'</div></div><div class="col-xs-4"><div>kwota+wydano:</div><div>'+sum+'</div></div></div></div>';
 		$('#limitInfo').html(limitInfo);
 		$('#limitInfo').fadeIn();
 	}

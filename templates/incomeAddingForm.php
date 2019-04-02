@@ -11,7 +11,7 @@
 					</div>
 				</td>
 				<td>
-					<input class="amountGetting" name="amount" type="text" value="<?PHP 
+					<input class="amountGetting" name="amount" type="number"  step=".01" min="0.01" value="<?PHP 
 					if (isset($_SESSION['amountSes'])):
 						echo $_SESSION['amountSes'];
 						unset ($_SESSION['amountSes']);
@@ -76,9 +76,8 @@
 			</tr>
 		</table>
 		<div class="buttons">
-			<input type="submit" class="add" value="Dodaj">
-			<input class="cancel" value="Anuluj"  type="button" onclick="location.href='index.php?action=showMenu';">
+			<button type="submit" class="add noLeftBorder"><span class='glyphicon glyphicon-ok nav-icon'></span> Dodaj</buton>
+			<button class="cancel noRightBorder" type="button" onclick="location.href='index.php?action=showMenu';"><span class='glyphicon glyphicon-remove nav-icon'></span> Anuluj</button>
 		</div>
 	</form>
 </div>
-

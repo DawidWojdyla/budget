@@ -21,7 +21,7 @@
 				<td class="text-right"><?=number_format($incomeCategorySum[$income->categoryName], 2,'.',' ')?></td>
 			</tr>
 						<?PHP endif; ?>
-				<tr data-toggle="tooltip" title="<?=$income->comment?>" class="i<?=$income->categoryId?>" id="i<?=$income->incomeId?>s" style="display:none; font-size: 14px; color:#777777;" onclick="showEditButtons('i<?=$income->incomeId?>');">
+				<tr data-toggle="tooltip" title="<?=$income->comment?>" class="i<?=$income->categoryId?>" id="i<?=$income->incomeId?>s" style="display:none; font-size: 14px; color:#ccc;" onclick="showEditButtons('i<?=$income->incomeId?>');">
 					<td class="text-center">
 						<div style="display:none;" id="i<?=$income->incomeId?>+<?=$income->categoryId?>comment"><?=$income->comment?></div>
 						<div style="padding-left: 5%;" id="i<?=$income->incomeId?>+<?=$income->categoryId?>date"><?=$income->incomeDate?></div>
@@ -67,7 +67,7 @@
 				<td colspan="2" class="text-right"><?=number_format($expenseCategorySum[$expense->categoryName], 2,'.',' ')?></td>
 			</tr>
 				<?PHP endif; ?>
-				<tr data-toggle="tooltip" title="<?=$expense->comment?>" class="e<?=$expense->categoryId?>" id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>s" style="display:none; font-size: 14px; color:#777777;" onclick="showEditButtons('e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>');">
+				<tr data-toggle="tooltip" title="<?=$expense->comment?>" class="e<?=$expense->categoryId?>" id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>s" style="display:none; font-size: 14px; color:#ccc;" onclick="showEditButtons('e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>');">
 					<td class="text-center">
 						<div style="display:none;" id="e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>comment"><?=$expense->comment?></div>
 						<div id="e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>date"><?=$expense->expenseDate?></div>
