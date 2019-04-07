@@ -4,7 +4,7 @@
 			Dodaj wydatek
 		</div>
 		<div id="limitInfo" style="display: none;"></div>
-		<table class="expenseTable">
+		<table class="expenseTable" style="margin-top: 40px;">
 			<tr>
 				<td>
 					<div class="attributes">
@@ -12,7 +12,7 @@
 					</div>
 				</td>
 				<td>
-					<input id="amount" class="amountGetting" name="amount" step=".01" min="0" type="number" value="<?PHP 
+					<input id="amount" class="amountGetting" name="amount" step=".01" min="0.01" type="number" value="<?PHP 
 					if (isset($_SESSION['amountSes'])):
 						echo $_SESSION['amountSes'];
 						unset ($_SESSION['amountSes']);
@@ -77,7 +77,7 @@
 						endif;?>><?=$category->name?></label>
 					</div>
 					<?PHP if($category->limit !== null): ?>
-					<div style="margin-left:20px; color: #ab4468; margin-top:-8px; font-size: 13px; text-shadow: none; font-weight: bold;">Limit: <?=$category->limit?></div>
+					<div style="margin-left:20px; color: #fa5300; margin-top:-8px; font-size: 13px; font-weight: bold;">Limit: <?=$category->limit?></div>
 					<?PHP endif; ?>
 					<?PHP endforeach; if (isset($_SESSION['categoryError'])):?>
 					<div class="option error"><?=$_SESSION['categoryError']?></div>
@@ -99,8 +99,7 @@
 			</tr>
 		</table>
 		<div class="buttons">
-			<input type="submit" class="add" value="Dodaj">
-			<input class="cancel" value="Anuluj"  type="button" onclick="location.href='index.php?action=showMenu';">
+			<button type="submit" class="add noLeftBorder"><span class='glyphicon glyphicon-ok nav-icon'></span> Dodaj</buton><button class="cancel noRightBorder" type="button" onclick="location.href='index.php?action=showMenu';"><span class='glyphicon glyphicon-remove nav-icon'></span> Anuluj</button>
 		</div>
 	</form>
 </div>

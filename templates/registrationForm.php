@@ -6,7 +6,7 @@
 		<?php endforeach;?>
 		<div class="captcha"><div class="g-recaptcha" data-sitekey="6LeFT1sUAAAAAG4A7QCqSaZz9bwwCTl5Sv3MJfle"></div></div>
 		<div class="form-group">
-			<input class="myRegisterInputs" type="submit" value="Zarejestruj">
+			<button class="myRegisterInputs add" type="submit"><span class='glyphicon glyphicon-plus nav-icon'></span> Zarejestruj</button>
 		</div>
 	</form>
 </div>

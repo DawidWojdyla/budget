@@ -31,18 +31,15 @@
 	<body>
 		<div class="container-fluid">
 			<header>
-				<div class="rectangle">
-					<div class="row">		
-						<div class="col-sm-6" id="logo">
-							<a href="index.php">
+				<div class="rectangle row">	
+						<div id="logo" class="col-sm-6">
 								BUDŻET<i class="icon-wallet"></i>osobisty
-							</a>
 						</div>
 						<?php
-							if ($portal->getActualUser()){
+							if ($portal->getActualUser())
+							{
 								include 'logInfo.php';
-								include 'logoutDiv.php';
-								 if($action != 'showMenu') include 'templates/topNav.php'; 
+								include 'templates/topNav.php'; 
 							}
 							else include 'loginDiv.php';
 						?>
@@ -133,7 +130,7 @@
 					default:
 						switch($portal->showMenu()){
 							case ACTION_OK:
-								include 'templates/menuDiv.php';
+								include 'templates/mainAfterLogin.php';
 								break;
 							default:
 								header('Location:index.php?action=showMain');
@@ -141,5 +138,6 @@
 				 endswitch;
 				?>
 			</div>
+		</div>
 	</body>
 </html>

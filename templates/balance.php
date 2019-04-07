@@ -21,7 +21,7 @@
 				<td class="text-right"><?=number_format($incomeCategorySum[$income->categoryName], 2,'.',' ')?></td>
 			</tr>
 						<?PHP endif; ?>
-				<tr data-toggle="tooltip" title="<?=$income->comment?>" class="i<?=$income->categoryId?>" id="i<?=$income->incomeId?>s" style="display:none; font-size: 14px; color:#777777;" onclick="showEditButtons('i<?=$income->incomeId?>');">
+				<tr data-toggle="tooltip" title="<?=$income->comment?>" class="i<?=$income->categoryId?>" id="i<?=$income->incomeId?>s" style="display:none; font-size: 14px; color:#ccc;" onclick="showEditButtons('i<?=$income->incomeId?>');">
 					<td class="text-center">
 						<div style="display:none;" id="i<?=$income->incomeId?>+<?=$income->categoryId?>comment"><?=$income->comment?></div>
 						<div style="padding-left: 5%;" id="i<?=$income->incomeId?>+<?=$income->categoryId?>date"><?=$income->incomeDate?></div>
@@ -32,7 +32,7 @@
 					<td style="text-align: right;">
 						<div style="display:inline;" class="noMargin noPadding text-right">
 							<span data-toggle="tooltip" title="Edytuj" onclick="showEditForm('i<?=$income->incomeId?>+<?=$income->categoryId?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
-							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$income->incomeId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
+							<span style="color: #bb4411;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$income->incomeId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
 						</div>
 					</td>
 				</tr>
@@ -67,7 +67,7 @@
 				<td colspan="2" class="text-right"><?=number_format($expenseCategorySum[$expense->categoryName], 2,'.',' ')?></td>
 			</tr>
 				<?PHP endif; ?>
-				<tr data-toggle="tooltip" title="<?=$expense->comment?>" class="e<?=$expense->categoryId?>" id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>s" style="display:none; font-size: 14px; color:#777777;" onclick="showEditButtons('e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>');">
+				<tr data-toggle="tooltip" title="<?=$expense->comment?>" class="e<?=$expense->categoryId?>" id="e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>s" style="display:none; font-size: 14px; color:#ccc;" onclick="showEditButtons('e<?=$expense->expenseId?>&<?=$expense->paymentMethodId?>');">
 					<td class="text-center">
 						<div style="display:none;" id="e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>comment"><?=$expense->comment?></div>
 						<div id="e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>date"><?=$expense->expenseDate?></div>
@@ -81,7 +81,7 @@
 					<td style="text-align: right;">
 						<div style="display:inline;" class="noMargin noPadding text-right">
 							<span data-toggle="tooltip" title="Edytuj" onclick="showEditForm('e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>');"  class='glyphicon glyphicon-pencil balance-icon'></span>
-							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
+							<span style="color: #bb4411;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
 						</div>
 					</td>
 				</tr>
