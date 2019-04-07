@@ -18,16 +18,16 @@
 		</div>
 		<form action="index.php?action=showBalance" method="post">
 			<div class="text-center" style="color:white; margin-top: 15px;">
-				<div style="margin-bottom:5px; font-weight: bold;">
-					od<input type="date" class="dateGetting" min="1999-01-01" name="dateFrom">
+				<div style="margin-bottom:5px;">
+					<span class="glyphicon glyphicon-play nav-icon"></span><input type="date" class="dateGetting" min="1999-01-01" name="dateFrom" required>
 				</div>
-				<div style="font-weight: bold;">
-					do<input type="date" class="dateGetting" min="1999-01-01" name="dateTo">
+				<div >
+					<span class="glyphicon glyphicon-stop nav-icon"></span><input type="date" class="dateGetting" min="1999-01-01" name="dateTo" required>
 				</div>
 			</div>
-			<div class="buttons editButtons" style="text-align: center; margin-top: 10px;">
-				<input type="submit" class="add" name="period" value="Pokaż">
-				<input type="reset" class="cancel" name="cancel" value="Anuluj" onclick="closeModal('customPeriod');">
+			<input type="hidden" name="period" value="customPeriod">
+			<div class="buttons" style="text-align: center; margin-top: 15px;">
+				<button type="submit" class="add noLeftBorder"><span class="glyphicon glyphicon-ok nav-icon"></span> Pokaż</button><button type="reset" class="cancel noRightBorder" name="cancel" onclick="closeModal('customPeriod');"><span class="glyphicon glyphicon-remove nav-icon"></span> Anuluj</button>
 			</div>
 		</form>
 	</div>

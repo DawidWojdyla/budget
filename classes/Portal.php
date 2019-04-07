@@ -156,7 +156,7 @@ class Portal extends MyDB
 					$_SESSION['dateTo'] = date('Y-m-d');
 					$_SESSION['whatPeriod'] = $_POST['period'];
 					break;
-				case 'Pokaż': 
+				case 'customPeriod': 
 					$_SESSION['dateFrom'] = $_POST ['dateFrom'];
 					$_SESSION['dateTo'] = $_POST['dateTo'];
 					$_SESSION['whatPeriod'] = substr(str_replace('-', '/', $_POST ['dateFrom']),2).' - '.substr(str_replace('-', '/', $_POST ['dateTo']),2);

@@ -169,14 +169,13 @@ h1
 .topnav 
 {
 	background-color: #222222;
-	opacity: 0.75;
-	transition: opacity 0.4s linear;
+	opacity: 0.8;
+	transition: background-color 0.5s;
 }
 
 .topnav:hover
 {
-	opacity: 0.9;
-	transition: opacity 0.3s linear;
+	background-color: #111111;
 }
 
 .nav-item
@@ -187,6 +186,8 @@ h1
 	border: solid 0.5px white;
 	border-bottom: solid 1px transparent;
 	border-top: solid 1px transparent;
+	transition: background-color 0.3s;
+	opacity: 0.9;
 }
 
 .nav-item:hover
@@ -194,6 +195,7 @@ h1
 	cursor: pointer;
 	background-color: #4e4e4e;
 	border: solid 1px white;
+	opacity: 1;
 }
 
 .nav-icon
@@ -270,11 +272,36 @@ h1
 	padding: 2px;
 }
 
-
+.mainAfterLogin
+{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: justify;
+	width: 85%;
+	max-width: 700px;
+	font-size: 16px;
+	opacity: 0.75;
+	text-shadow:
+	1px 1px 0px black,
+	-1px -1px 0px black,
+	-1px 1px 0px black,
+	1px -1px 0px black;	
+}
+.mainAfterLoginImg
+{
+	width: 100%;
+	text-align: center;
+}
+.mainAfterLoginImg > img
+{
+	opacity: 0.2;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 #footer
 {
-	background-color: #44ab53;
+	/*background-color: #44ab53;
 	min-width: 1000px;
 	margin-top: 40px;
 	text-align: center;
@@ -284,18 +311,19 @@ h1
 	-moz-box-shadow: inset 0px 0px 41px 9px rgba(18,18,17,1);
 	box-shadow: inset 0px 0px 21px 3px rgba(18,18,17,1);
 	text-shadow: 1px 1px 20px white,	
-						  0px 1px 0px black;
+						  0px 1px 0px black;*/
 }
 
 #tableContainer
 {
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 50px;
+	margin-top: 55px;
 	font-size: 17px;
 	max-width: 500px;
 	min-width: 300px;
-	padding-bottom: 10px;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
 }
 
 .dropdownMenuContainer
@@ -322,6 +350,9 @@ h1
 	-1.5px -1.5px 0px black,
 	-1.5px 1.5px 0px black,
 	1px -1px 0px black;	
+	background-color: #4e4e4e;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
 }
 
 .expenseTable
@@ -418,9 +449,14 @@ h1
 	padding: 5px;
 	font-size: 16px;
 	font-weight: bold;
-	border: 1.5px solid #222;
+	/*border: 1.5px solid #222;*/
 	text-align: center;
 	color: #d8d7d8;
+	text-shadow:
+	1px 1px 0px black,
+	-1px -1px 0px black,
+	-1px 1px 0px black,
+	1px -1px 0px black;	
 }
 
 .buttons
@@ -438,7 +474,7 @@ h1
 	border-top: solid 1px transparent;		
 	background-color: #222222;
 	opacity: 0.75;
-	transition: opacity 0.4s linear;
+	transition: background-color 0.3s;
 	width: 50%;
 }
 
@@ -458,7 +494,6 @@ h1
 	background-color: #4e4e4e;
 	border: solid 1px white;
 	opacity: 0.9;
-	transition: opacity 0.3s linear;
 }
 
 
@@ -516,7 +551,7 @@ h1
 	border: solid 1px transparent;
 	background-color: #222222;
 	opacity: 0.75;
-	transition: opacity 0.4s linear;
+	transition: background-color 0.3s;
 }
 
 .customPeriod
@@ -542,7 +577,6 @@ h1
 	background-color: #4e4e4e;
 	border: solid 1px white;
 	opacity: 0.9;
-	transition: opacity 0.3s linear;
 }
 
 .left
@@ -559,7 +593,6 @@ float: right;
 	width: 95%;
 	margin: 0px auto 10px auto;
 	/*border-collapse: collapse; */
-	padding: 10px;
 }
 
 .balanceTable tr
@@ -598,7 +631,7 @@ float: right;
 	background-color: transparent; 
 	padding:2px;
 	margin: 1px;
-	color: #4468ab;
+	color: #4466ee;
 	cursor: pointer;
 }
 
@@ -606,7 +639,7 @@ float: right;
 .balanceTable tr:last-child > td
 {
 	padding: 20px 5px 15px 5px;
-	color: #1133bb;
+	color: #738cf2;
 	font-weight: bold;
 	font-size: 22px;
 	border-top: 2px groove #44ab53;
@@ -620,11 +653,16 @@ float: right;
 	margin-top: 5px;
 	
 }
+.limitColor
+{
+	color: #fa5300;
+
+}
 
 .balance
 {
 	margin: 10px auto 10px auto;
-	color: #1133bb;
+	color: #738cf2;
 	font-weight: bold;
 	font-size: 24px;
 }
@@ -640,10 +678,6 @@ float: right;
 	margin: 0px auto 20px auto;
 	padding:1px;
 	font-size: 16px;
-	text-shadow:
-	-0.5px 0.5px 0px #44ab53,
-	0.5px -0.5px 0px #44ab53,
-	-0.5px -0.5px 0px #44ab53;
 }
 .categoryEditTable tr:first-child td
 {
@@ -664,11 +698,10 @@ float: right;
 	display:inline;
 	padding: 3px;
 	margin: 5px;
-	color: #ab5344;
-	text-shadow:
-	-0.5px 0.5px 0px #ab4468,
-	0.5px -0.5px 0px #ab4468,
-	-0.5px -0.5px 0px #4468ab;
+}
+.categoryOption:hover
+{
+	
 }
 
 .position
@@ -696,11 +729,21 @@ float: right;
   margin-right: -4px;
 }
 
-.modal-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-  
+.modal-dialog 
+{
+	color: white;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+	padding: 10px 0 15px 0;
+	background-color: #4e4e4e;
+	opacity: 0.95;
+}
+.modal-dialog:hover
+{
+	/*background-color: #333;*/
 }
 .settingsModal
 {
@@ -708,14 +751,7 @@ float: right;
 	padding: 20px 5px 5px 5px;*/
 	color:white;
 	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
-	text-shadow:
-	-1px 1px 0px black,
-	1px -1px 0px black,
-	-1px -1px 0px black,
-	1px 1px 0px black;
-	
+	text-align: center;;
 }
 
 .settingsModal >input
@@ -748,13 +784,17 @@ float: right;
 
 .message
 {
+	position: relative;
+	right:0;
+	top:0;
+	margin-top: 20px;
 	width: 100%;
 	height:16px;
-	margin-bottom:-16px;
+	margin-bottom:-36px;
 	text-align: center;
 	font-size: 16px;
-	font-weight:bold;
-	color: #183e1e;
+	color: white;
+	opacity: 0.75;
 }
 
 .return
@@ -785,20 +825,38 @@ float: right;
 	color: inherit;
 }
 
+.editClick
+{
+	color: white;
+	background-color: transparent;
+	/*border: solid 1px white;*/
+	border-bottom: solid 1px transparent;
+	border-top: solid 1px transparent;		
+	opacity: 0.75;
+	transition: background-color 0.3s;
+}
+.link
+{
+	margin-left: auto;
+	margin-right: auto;
+	font-size: inherit;
+	max-width: 75%;
+}
 .editClick:hover
 {
-	cursor: pointer; 
-	background-color: #44bc53;
-	color: #ededed;
+	cursor: pointer;
+	background-color: #4e4e4e;
+	border: solid 1px white;
+	opacity: 0.9;
+}
+.borderWhenHover:hover
+{
+	border: solid 1px white;
 }
 
-.editButtons > input
+.editButtons
 {
-	margin: 0 5px 0 5px;
-	padding: 2px;
-	font-size: 12px;
-	width: 62px;
-	height: 28px;
+	margin-top: 10px;
 }
 .pointer
 {
@@ -877,7 +935,6 @@ float: right;
 	font-size: 17px;
 	padding: 0px;
 	min-width: 100px;
-	font-weight: bold;
 	vertical-align: middle;
 }
 
@@ -886,6 +943,14 @@ float: right;
 	width: 160px;
 	margin-top: 7px;
 	margin-bottom:7px;
+}
+
+#editFormModal
+{
+}
+
+#editFormModalBody
+{
 }
 
 #logInfo
@@ -909,8 +974,8 @@ float: right;
 {
 	width: 100%;
 	border-radius: 15px;
-	opacity: 0.3;
-	filter: alpha(opacity=30); 
+	opacity: 0.2;
+	filter: alpha(opacity=20); 
 	 -webkit-filter: blur(3.5px); /* Safari 6.0 - 9.0 */
 	filter: blur(3.5px);
 }
@@ -918,9 +983,9 @@ float: right;
 .quotation
 {
 	position: absolute;
-	 top:50%;
+	 top:25%;
 	 letf: 50%;
-	 font-size: 17px;
+	 font-size: 18px;
 	 font-weight: bold;
 	 color: white;
 	 text-shadow: 1px 1px 2px black,
@@ -951,13 +1016,20 @@ float: right;
 .limitInfo
 {
 	max-width: 100%;
-	margin-top: -15px;
-	margin-bottom: 10px;
+	margin-top: -20px;
+	margin-bottom: -38px;
 	font-size: 13px;
 	background-color: green;
+	padding: 1px;
+	opacity: 0.9;
 }
 
 .red
 {
 	background-color: #cd4353;
+}
+
+.normalFont
+{
+	font-weight: normal;
 }

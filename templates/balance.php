@@ -32,7 +32,7 @@
 					<td style="text-align: right;">
 						<div style="display:inline;" class="noMargin noPadding text-right">
 							<span data-toggle="tooltip" title="Edytuj" onclick="showEditForm('i<?=$income->incomeId?>+<?=$income->categoryId?>');" class='glyphicon glyphicon-pencil balance-icon'></span>
-							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$income->incomeId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
+							<span style="color: #bb4411;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('i<?=$income->incomeId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
 						</div>
 					</td>
 				</tr>
@@ -81,7 +81,7 @@
 					<td style="text-align: right;">
 						<div style="display:inline;" class="noMargin noPadding text-right">
 							<span data-toggle="tooltip" title="Edytuj" onclick="showEditForm('e<?=$expense->expenseId?>+<?=$expense->categoryId?>&<?=$expense->paymentMethodId?>');"  class='glyphicon glyphicon-pencil balance-icon'></span>
-							<span style="color: #ab4468;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
+							<span style="color: #bb4411;"  data-toggle="tooltip" title="Usuń" onclick="removeItem('e<?=$expense->expenseId?>')" class='glyphicon glyphicon-remove balance-icon'></span>
 						</div>
 					</td>
 				</tr>

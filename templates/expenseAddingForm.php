@@ -4,7 +4,7 @@
 			Dodaj wydatek
 		</div>
 		<div id="limitInfo" style="display: none;"></div>
-		<table class="expenseTable">
+		<table class="expenseTable" style="margin-top: 40px;">
 			<tr>
 				<td>
 					<div class="attributes">
@@ -77,7 +77,7 @@
 						endif;?>><?=$category->name?></label>
 					</div>
 					<?PHP if($category->limit !== null): ?>
-					<div style="margin-left:20px; color: #ab4468; margin-top:-8px; font-size: 13px; text-shadow: none; font-weight: bold;">Limit: <?=$category->limit?></div>
+					<div style="margin-left:20px; color: #fa5300; margin-top:-8px; font-size: 13px; font-weight: bold;">Limit: <?=$category->limit?></div>
 					<?PHP endif; ?>
 					<?PHP endforeach; if (isset($_SESSION['categoryError'])):?>
 					<div class="option error"><?=$_SESSION['categoryError']?></div>

@@ -29,8 +29,8 @@ function showClass(className)
 
 function removeItem(id)
 {
-	var modalBody = 'Czy napewno chcesz usunąć wybraną pozycję?';
-	modalBody += '<form action="index.php?action=removeItem" method="post"><div class="buttons editButtons"><input type="hidden" name="itemToBeRemoved" value="'+id+'"><input type="submit" class="add" value="Tak"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'modal\');" /></div></form>';
+	var modalBody = '<div class="tableHead">Usunąć wybraną pozycję?</div>';
+	modalBody += '<form action="index.php?action=removeItem" method="post"><div class="buttons editButtons"><input type="hidden" name="itemToBeRemoved" value="'+id+'"><button type="submit" class="add noLeftBorder"><span class="glyphicon glyphicon-ok nav-icon"></span> Tak</button><button class="cancel noRightBorder" type="button" onclick="closeModal(\'modal\');"><span class="glyphicon glyphicon-remove nav-icon"></span> Anuluj</button></div></form>';
 	
 	document.getElementById("modalBody").innerHTML = modalBody;
 	$('#modal').modal('show');
@@ -99,7 +99,7 @@ function showEditForm(id)
 		
 		editForm += '</select></td></tr>';
 		editForm += '<tr><td>Komentarz</td><td><textarea class="commentGetting editFormInputs" form="updatingForm" name="comment" id="comment" form="editForm">'+comment+'</textarea></td></tr>';
-		editForm += '<tr><td colspan="2"><div class="buttons editButtons" style="text-align: center; width:100%;"><input type="submit" class="add" value="Zapisz"><input class="cancel" value="Anuluj" type="button" onclick="closeModal(\'editFormModal\');"></div></td></tr></table></form>';
+		editForm += '<tr><td colspan="2"><div class="buttons editButtons" style="text-align: center; width:100%;"><button type="submit" class="add noLeftBorder"><span class="glyphicon glyphicon-ok nav-icon"></span> Zapisz</button><button class="cancel noRightBorder" type="button" onclick="closeModal(\'editFormModal\');"><span class="glyphicon glyphicon-remove nav-icon"></span> Anuluj</button></div></td></tr></table></form>';
 		
 	document.getElementById("editFormModalBody").innerHTML = editForm;
 	

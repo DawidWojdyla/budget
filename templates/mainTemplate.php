@@ -130,7 +130,7 @@
 					default:
 						switch($portal->showMenu()){
 							case ACTION_OK:
-							//	include 'templates/menuDiv.php';
+								include 'templates/mainAfterLogin.php';
 								break;
 							default:
 								header('Location:index.php?action=showMain');
